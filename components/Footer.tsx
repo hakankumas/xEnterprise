@@ -1,9 +1,13 @@
+import { socialMediaLinks } from "@/variables/SocialMediaItems";
 import Link from "next/link";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoMail } from "react-icons/io5";
 
 export default function Footer() {
     return (
-        <div className="bg-gray-800 text-white py-5 flex flex-col md:flex-row justify-around">
-            <div className="my-5 flex justify-center md:justify-start">
+        <div className="bg-gray-800 text-white py-5 flex flex-col lg:flex-row justify-around">
+            <div className="my-5 flex justify-center lg:justify-start">
                 <img
                     src="/logo.png"
                     alt="Hakan KUMAŞ - Logo"
@@ -11,23 +15,88 @@ export default function Footer() {
                 />
             </div>
 
-            <div className="my-5 text-center md:text-start flex flex-col md:flex-row gap-8">
+            <div className="my-5 text-center lg:text-start flex flex-col lg:flex-row gap-8">
                 <div>
                     <h3 className="text-lg font-bold mb-2">Bağlantılar</h3>
-                    <div className="flex flex-col gap-2">
+                    <div className="footer-menu flex flex-col gap-2">
                         <Link href="/">Ana Sayfa</Link>
                         <Link href="/about">Hakkımızda</Link>
                         <Link href="/services">Hizmetlerimiz</Link>
                         <Link href="/projects">Projelerimiz</Link>
+                    </div>
+                </div>
+            </div>
+
+            <div className="my-5 text-center lg:text-start flex flex-col lg:flex-row gap-8">
+                <div>
+                    <h3 className="text-lg font-bold mb-2">Bağlantılar</h3>
+                    <div className="footer-menu flex flex-col gap-2">
+                        <Link href="/partners">İş Ortaklarımız</Link>
+                        <Link href="/references">Referanslarımız</Link>
+                        <Link href="/blog">Blog</Link>
                         <Link href="/contact">İletişim</Link>
                     </div>
                 </div>
             </div>
 
-            <div className="my-5 text-center md:text-start">
+            <div className="my-5 text-center lg:text-start flex flex-col gap-4">
                 <h3 className="text-lg font-bold mb-2">İletişim Bilgileri</h3>
-                <p>Email: info@hakankumas.com.tr</p>
-                <p>Telefon: +90 123 456 78 90</p>
+                <div className="flex items-center gap-2 justify-center lg:justify-start">
+                    <a
+                        href="mailto:info@hakankumas.com.tr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
+                    >
+                        <span>
+                            <IoMail size={20} />
+                        </span>
+                        <span>info@hakankumas.com.tr</span>
+                    </a>
+                </div>
+                <div className="flex items-center gap-2 justify-center lg:justify-start">
+                    <a
+                        href="tel:+905344408084"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
+                    >
+                        <span>
+                            <FaPhoneAlt size={20} />
+                        </span>
+                        <span>+90 534 440 80 84</span>
+                    </a>
+                </div>
+                <div className="flex items-center gap-2 justify-center lg:justify-start">
+                    <a
+                        href="https://www.google.com/maps/place/Sakarya/T%C3%BCrkiye"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
+                    >
+                        <span>
+                            <FaLocationDot size={20} />
+                        </span>
+                        <span>Sakarya/Türkiye</span>
+                    </a>
+                </div>
+                <div className="flex items-center gap-10 lg:gap-5 justify-center lg:justify-start">
+                    {socialMediaLinks.map((link) => (
+                        <a
+                            key={link.name}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={
+                                link.active
+                                    ? "text-gray-300 hover:text-gray-400 transition-colors duration-300 text-xl"
+                                    : "hidden"
+                            }
+                            title={`Hakan KUMAŞ - ` + link.name}
+                        >
+                            {link.icon}
+                        </a>
+                    ))}
+                </div>
             </div>
         </div>
     );

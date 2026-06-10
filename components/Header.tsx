@@ -3,31 +3,35 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const menuItems = [
-    { href: "/", label: "Ana Sayfa" },
-    { href: "/about", label: "Hakkımızda" },
-    { href: "/services", label: "Hizmetlerimiz" },
-    { href: "/projects", label: "Projelerimiz" },
-    { href: "/partners", label: "İş Ortaklarımız" },
-    { href: "/references", label: "Referanslarımız" },
-    { href: "/blog", label: "Blog" },
-    { href: "/contact", label: "İletişim" },
-];
+import HeaderTop from "./HeaderTop";
+import { menuItems } from "@/variables/MenuItems";
+import { MdPlayArrow } from "react-icons/md";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
     const pathname = usePathname();
 
     const linkClass = (href: string) =>
-        pathname === href ? "text-gray-400" : "hover:text-gray-300";
+        pathname === href
+            ? "text-gray-400 flex items-center gap-2"
+            : "hover:text-gray-300 transition-colors duration-300 flex items-center gap-2";
 
     return (
-        <div className="bg-gray-800 text-white">
+        <div className="sticky top-0 left-0 w-full z-50 bg-gray-800 text-white">
+            <HeaderTop />
             <div className="h-16 flex items-center justify-between px-4 lg:justify-center">
                 {/* Mobile Button */}
                 <div className="lg:hidden">
-                    <button onClick={() => setOpen(!open)}>☰</button>
+                    <button
+                        onClick={() => setOpen(!open)}
+                        className={
+                            open
+                                ? "text-gray-400 transition-colors duration-300"
+                                : "hover:transition-colors duration-300"
+                        }
+                    >
+                        ☰
+                    </button>
                 </div>
 
                 {/* Desktop Menu */}
@@ -46,7 +50,7 @@ export default function Header() {
 
             {/* Mobile Menu */}
             {open && (
-                <div className="flex flex-col gap-4 ps-4 pb-4 lg:hidden">
+                <div className="absolute top-full left-0 w-full h-screen p-5 bg-gray-900 flex flex-col gap-4 lg:hidden z-50 shadow-lg">
                     {menuItems.map((item) => (
                         <Link
                             key={item.href}
@@ -54,6 +58,7 @@ export default function Header() {
                             className={linkClass(item.href)}
                             onClick={() => setOpen(false)}
                         >
+                            <MdPlayArrow />
                             {item.label}
                         </Link>
                     ))}

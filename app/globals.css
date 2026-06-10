@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-    background-color: black;
+    background-color: rgb(1, 1, 1);
     color: white;
 }
 
-.header-menu > * {
+.footer-menu > * {
     @apply transition-colors duration-300;
 }
 
-.header-menu > *:hover {
+.footer-menu > *:hover {
     @apply text-gray-400;
 }
