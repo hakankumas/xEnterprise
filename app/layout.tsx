@@ -1,9 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Goldman } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ContactBtn from "@/components/ContactBtn";
+import LayoutContent from "@/components/LayoutContent";
 
 const goldman = Goldman({
     weight: ["400", "700"],
@@ -29,10 +27,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="tr" className={`${goldman.className} h-full antialiased`}>
             <body className="min-h-full flex flex-col">
-                <Header />
-                <ContactBtn />
-                <div className="min-h-screen">{children}</div>
-                <Footer />
+                <LayoutContent>{children}</LayoutContent>
             </body>
         </html>
     );
