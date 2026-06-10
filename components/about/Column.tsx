@@ -5,6 +5,7 @@ export default function Column() {
                 src="https://placehold.co/1600x400"
                 alt="Hakkımızda"
                 className="w-full object-cover"
+                loading="lazy"
             />
             <p className="text-justify">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.

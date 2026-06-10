@@ -12,3 +12,11 @@
 .footer-menu > *:hover {
     @apply text-gray-400;
 }
+
+.contact-card > * {
+    @apply bg-gray-50 text-black w-full h-20 flex items-center lg:justify-center px-5 lg:ps-0;
+}
+
+.contact-card > *:hover {
+    @apply bg-gray-300 transition-colors duration-300;
+}

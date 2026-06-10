@@ -5,6 +5,7 @@ export default function Row() {
                 src="https://placehold.co/600x400"
                 alt="Hakkımızda"
                 className="w-full lg:w-1/3 lg:float-left lg:mr-6 mb-4 lg:mb-4"
+                loading="lazy"
             />
             <p className="text-justify">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.

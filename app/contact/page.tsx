@@ -1,3 +1,5 @@
+import Column from "@/components/contact/Column";
+import Row from "@/components/contact/Row";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function Contact() {
-    return <div>İletişim</div>;
+    return (
+        <div>
+            {/* <Row /> */}
+            <Column />
+        </div>
+    );
 }
