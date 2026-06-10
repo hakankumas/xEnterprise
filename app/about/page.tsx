@@ -1,3 +1,5 @@
+import Column from "@/components/about/Column";
+import Row from "@/components/about/Row";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function About() {
-    return <div>Hakkımızda</div>;
+    return (
+        <div>
+            <Row />
+            {/* <Column /> */}
+        </div>
+    );
 }
