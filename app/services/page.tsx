@@ -1,3 +1,4 @@
+import Card1 from "@/components/cards/Card1";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function Services() {
-    return <div>Hizmetlerimiz</div>;
+    return (
+        <div>
+            <Card1 />
+        </div>
+    );
 }

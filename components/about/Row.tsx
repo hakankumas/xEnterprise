@@ -1,6 +1,6 @@
 export default function Row() {
     return (
-        <div className="p-5 lg:p-0 lg:py-10">
+        <div className="p-5 lg:px-0 lg:py-10">
             <img
                 src="https://placehold.co/600x400"
                 alt="Hakkımızda"
