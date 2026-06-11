@@ -42,7 +42,7 @@ export default function Column() {
                 <div className="flex items-center gap-5">
                     {socialMediaLinks.map((link) => (
                         <a
-                            key={link.name}
+                            key={link.label}
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -51,7 +51,7 @@ export default function Column() {
                                     ? "text-black hover:text-gray-500 transition-colors duration-300 text-xl"
                                     : "hidden"
                             }
-                            title={`Hakan KUMAŞ - ` + link.name}
+                            title={`Hakan KUMAŞ - ` + link.label}
                         >
                             {link.icon}
                         </a>

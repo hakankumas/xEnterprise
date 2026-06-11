@@ -85,7 +85,7 @@ export default function Footer() {
                     <div className="flex items-center gap-10 lg:gap-5 justify-center lg:justify-start">
                         {socialMediaLinks.map((link) => (
                             <a
-                                key={link.name}
+                                key={link.label}
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -94,7 +94,7 @@ export default function Footer() {
                                         ? "text-gray-300 hover:text-gray-400 transition-colors duration-300 text-xl"
                                         : "hidden"
                                 }
-                                title={`Hakan KUMAŞ - ` + link.name}
+                                title={`Hakan KUMAŞ - ` + link.label}
                             >
                                 {link.icon}
                             </a>
