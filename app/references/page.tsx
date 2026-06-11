@@ -1,3 +1,4 @@
+import Gallery2 from "@/components/gallery/Gallery2";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function References() {
-    return <div>Referanslarımız</div>;
+    return (
+        <div>
+            <Gallery2 />
+        </div>
+    );
 }

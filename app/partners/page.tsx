@@ -1,3 +1,4 @@
+import Gallery1 from "@/components/gallery/Gallery1";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function Partners() {
-    return <div>İş Ortaklarımız</div>;
+    return (
+        <div>
+            <Gallery1 />
+        </div>
+    );
 }
