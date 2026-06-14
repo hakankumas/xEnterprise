@@ -1,5 +1,5 @@
-import Column from "@/components/contact/Column";
-import Row from "@/components/contact/Row";
+import Column from "@/components/pages/contact/Column";
+import Row from "@/components/pages/contact/Row";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
