@@ -11,11 +11,11 @@ export default function Home() {
         <div>
             <Slider />
             <About />
-            <Services />
+            {/* <Services />
             <Projects />
             <Partners />
             <References />
-            <Blog />
+            <Blog /> */}
         </div>
     );
 }
