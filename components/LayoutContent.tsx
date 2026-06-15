@@ -14,12 +14,12 @@ export default function LayoutContent({ children }: LayoutContentProps) {
     const pathname = usePathname();
 
     return (
-        <div className="container mx-auto bg-black">
+        <>
             <Header />
             {pathname !== "/" && <Breadcrumb />}
             <ContactBtn />
             <div className="min-h-screen">{children}</div>
             <Footer />
-        </div>
+        </>
     );
 }

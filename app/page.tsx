@@ -9,11 +9,11 @@ import Blog from "@/components/home/Blog";
 export default function Home() {
     return (
         <div>
-            {/* <Slider /> */}
-            {/* <About /> */}
+            <Slider />
+            <About />
             <Services />
-            {/* <Projects /> */}
-            {/* <Partners /> */}
+            <Projects />
+            <Partners />
             {/* <References /> */}
             {/* <Blog /> */}
         </div>

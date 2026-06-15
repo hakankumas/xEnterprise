@@ -5,7 +5,7 @@ import { menuItems } from "@/variables/MenuItems";
 export default function Breadcrumb() {
     const pathname = usePathname();
     return (
-        <div className="bg-gray-700">
+        <div className="container mx-auto">
             <div className="px-5 py-3">
                 <Link
                     href="/"

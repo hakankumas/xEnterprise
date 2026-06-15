@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Projects() {
     return (
-        <div>
+        <div className="container mx-auto">
             <Card2 />
         </div>
     );

@@ -8,7 +8,7 @@ export default function Over() {
                     className="w-full lg:w-2/3 h-96 lg:h-120 object-cover"
                 />
             </div>
-            <div className="-translate-y-15 lg:translate-y-0 mx-5 lg:mx-0 lg:absolute lg:bottom-0 lg:right-5 flex flex-col gap-2 justify-center items-center lg:items-start bg-white text-black p-5 lg:px-7 h-fit w-fit lg:w-150 rounded-2xl">
+            <div className="-translate-y-15 lg:translate-y-0 mx-5 lg:mx-0 lg:absolute lg:bottom-0 lg:right-5 flex flex-col gap-2 justify-center items-center lg:items-start bg-white text-black p-5 lg:px-7 h-fit w-fit lg:w-150 rounded-2xl shadow-2xl">
                 <p className="text-3xl">Hakkımızda</p>
                 <h1 className="text-xl">Hakan KUMAŞ</h1>
                 <p className="text-justify">

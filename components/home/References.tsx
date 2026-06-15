@@ -1,3 +1,3 @@
 export default function References() {
-    return <div>References</div>;
+    return <div className="container mx-auto">References</div>;
 }

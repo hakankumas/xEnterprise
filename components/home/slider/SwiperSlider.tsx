@@ -15,6 +15,7 @@ export default function SwiperSlider() {
                 slidesPerView={1}
                 navigation
                 pagination={{ clickable: true }}
+                grabCursor={true}
                 autoplay={{ delay: 5000 }}
                 loop={true}
             >

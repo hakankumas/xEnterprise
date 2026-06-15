@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function References() {
     return (
-        <div>
+        <div className="container mx-auto">
             <Gallery2 />
         </div>
     );

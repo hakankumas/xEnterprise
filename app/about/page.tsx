@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function About() {
     return (
-        <div>
+        <div className="container mx-auto">
             <Row />
             {/* <Column /> */}
         </div>
