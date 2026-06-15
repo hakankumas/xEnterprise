@@ -1,3 +1,9 @@
+import SwiperProject from "./projects/SwiperProject";
+
 export default function Projects() {
-    return <div>Projects</div>;
+    return (
+        <div className="container mx-auto">
+            <SwiperProject />
+        </div>
+    );
 }
