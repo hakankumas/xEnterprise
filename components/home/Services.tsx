@@ -1,3 +1,9 @@
+import SwiperService from "./services/SwiperService";
+
 export default function Services() {
-    return <div>Services</div>;
+    return (
+        <div className="container mx-auto">
+            <SwiperService />
+        </div>
+    );
 }
