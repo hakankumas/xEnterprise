@@ -8,8 +8,8 @@ export default function SwiperService() {
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 -translate-y-8 lg:translate-y-0">
             <div className="flex flex-col items-center">
-                <p className="text-3xl">Hizmetlerimiz</p>
-                <h2 className="text-xl">Profesyonel Yazılım Hizmetleri</h2>
+                <p className="text-4xl">Hizmetlerimiz</p>
+                <h2 className="text-lg">Profesyonel Yazılım Çözümleri</h2>
             </div>
             <div>
                 <Swiper

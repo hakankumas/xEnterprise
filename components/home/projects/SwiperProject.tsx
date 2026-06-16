@@ -7,8 +7,8 @@ export default function SwiperProject() {
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 pb-10 lg:pt-10">
             <div className="flex flex-col items-center">
-                <p className="text-3xl">Projelerimiz</p>
-                <h2 className="text-xl">Kurumsal Yazılım Hizmetleri</h2>
+                <p className="text-4xl">Projelerimiz</p>
+                <h2 className="text-lg">Özel Yazılım Hizmetleri</h2>
             </div>
             <div>
                 <Swiper
