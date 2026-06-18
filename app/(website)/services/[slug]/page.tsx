@@ -1,4 +1,4 @@
-import Row from "@/components/pages/about/Row";
+import Row from "@/components/website/pages/about/Row";
 
 export default function ServiceDetails() {
     return (

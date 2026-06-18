@@ -1,4 +1,4 @@
-import Card2 from "@/components/pages/cards/Card2";
+import Card2 from "@/components/website/pages/cards/Card2";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

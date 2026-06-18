@@ -1,7 +1,7 @@
+import LayoutContent from "@/components/website/LayoutContent";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Goldman } from "next/font/google";
-import LayoutContent from "@/components/LayoutContent";
 
 const goldman = Goldman({
     weight: ["400", "700"],

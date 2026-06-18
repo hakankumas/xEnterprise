@@ -1,8 +1,8 @@
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
-import { socialMediaLinks } from "../variables/SocialMediaItems";
 import { contactItems } from "@/variables/ContactItems";
+import { socialMediaLinks } from "@/variables/SocialMediaItems";
 
 export default function HeaderTop() {
     return (
