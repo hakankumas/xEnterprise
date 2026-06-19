@@ -7,7 +7,28 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 export default function SwiperSlider() {
+    const [sliders, setSliders] = useState([]);
+    const getAllSliders = async () => {
+        try {
+            const { data } = await axios.get("/api/website/slider");
+            setSliders(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getAllSliders();
+    }, []);
+
+    if (sliders.length === 0) {
+        return null;
+    }
+
     return (
         <div className="w-full h-[700px] lg:h-[650px]">
             <Swiper
@@ -19,29 +40,15 @@ export default function SwiperSlider() {
                 autoplay={{ delay: 3000 }}
                 loop={true}
             >
-                <SwiperSlide>
-                    <img
-                        src="https://placehold.co/1600x600"
-                        alt="Resim 1"
-                        className="w-full h-[700px] lg:h-[650px] object-cover"
-                    />
-                </SwiperSlide>
-
-                <SwiperSlide>
-                    <img
-                        src="https://placehold.co/1200x500"
-                        alt="Resim 2"
-                        className="w-full h-[700px] lg:h-[650px] object-cover"
-                    />
-                </SwiperSlide>
-
-                <SwiperSlide>
-                    <img
-                        src="https://placehold.co/1000x400"
-                        alt="Resim 3"
-                        className="w-full h-[700px] lg:h-[650px] object-cover"
-                    />
-                </SwiperSlide>
+                {sliders.map((slider: any) => (
+                    <SwiperSlide key={slider.id}>
+                        <img
+                            src={"slider/" + slider.img_path}
+                            alt={slider.title}
+                            className="w-full h-[700px] lg:h-[650px] object-cover"
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </div>
     );

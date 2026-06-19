@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model langs {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(255)
+  code         String   @unique(map: "code") @db.VarChar(255)
+  active       Boolean? @default(false)
+  default_lang Boolean  @default(false)
+  pages        pages[]
+  slider       slider[]
+}
+
+model pages {
+  id                Int       @id @default(autoincrement())
+  headpage_id       Int?
+  title             String?   @db.VarChar(255)
+  slug              String?   @db.VarChar(255)
+  lang_code         String?   @db.VarChar(20)
+  active            Boolean   @default(true)
+  sub_title         String?   @db.VarChar(255)
+  short_description String?   @db.Text
+  content           String?   @db.Text
+  img_path          String?   @db.VarChar(255)
+  seo_title         String?   @db.VarChar(255)
+  seo_description   String?   @db.VarChar(255)
+  createdAt         DateTime? @default(now()) @db.DateTime(0)
+  updatedAt         DateTime? @db.DateTime(0)
+  langs             langs?    @relation(fields: [lang_code], references: [code], onDelete: Cascade, map: "pages_ibfk_1")
+  pages             pages?    @relation("pagesTopages", fields: [headpage_id], references: [id], onDelete: Cascade, map: "pages_ibfk_2")
+  other_pages       pages[]   @relation("pagesTopages")
+
+  @@index([headpage_id], map: "headpage_id")
+  @@index([lang_code], map: "lang_code")
+}
+
+model slider {
+  id          Int       @id @default(autoincrement())
+  title       String?   @db.VarChar(500)
+  lang_code   String    @db.VarChar(20)
+  active      Boolean   @default(true)
+  description String?   @db.VarChar(1000)
+  img_path    String    @db.Text
+  createdAt   DateTime  @default(now()) @db.DateTime(0)
+  updatedAt   DateTime? @db.DateTime(0)
+  langs       langs     @relation(fields: [lang_code], references: [code], onDelete: Cascade, map: "slider_ibfk_1")
+
+  @@index([lang_code], map: "lang_code")
+}
