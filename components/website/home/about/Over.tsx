@@ -33,7 +33,7 @@ export default function Over() {
             <div className="-translate-y-15 lg:translate-y-0 mx-5 lg:mx-0 lg:absolute lg:bottom-0 lg:right-5 flex flex-col gap-2 justify-center items-center lg:items-start bg-white text-black p-5 lg:px-7 h-fit w-fit lg:w-150 rounded-2xl shadow-2xl">
                 <p className="text-3xl">{about.title}</p>
                 <h1 className="text-xl">{about.sub_title}</h1>
-                <p className="text-justify">{about.content}</p>
+                <p className="text-justify">{about.label}</p>
                 <Link
                     href="/hakkimizda"
                     className="text-sm text-center text-gray-400 hover:text-blue-600 cursor-pointer"

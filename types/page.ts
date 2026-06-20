@@ -6,7 +6,7 @@ export interface Page {
     lang_code?: string;
     active: boolean;
     sub_title?: string;
-    short_description?: string;
+    label?: string;
     content?: string;
     img_path?: string;
     seo_title?: string;
