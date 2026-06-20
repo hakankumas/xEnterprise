@@ -4,23 +4,23 @@ export const menuItems = [
         label: "Ana Sayfa",
     },
     {
-        href: "/about",
+        href: "/hakkimizda",
         label: "Hakkımızda",
     },
     {
-        href: "/services",
+        href: "/hizmetlerimiz",
         label: "Hizmetlerimiz",
     },
     {
-        href: "/projects",
+        href: "/projelerimiz",
         label: "Projelerimiz",
     },
     {
-        href: "/partners",
+        href: "/is-ortaklarimiz",
         label: "İş Ortaklarımız",
     },
     {
-        href: "/references",
+        href: "/referanslarimiz",
         label: "Referanslarımız",
     },
     {
@@ -28,7 +28,7 @@ export const menuItems = [
         label: "Blog",
     },
     {
-        href: "/contact",
+        href: "/iletisim",
         label: "İletişim",
     },
 ];

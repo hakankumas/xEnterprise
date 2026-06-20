@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Page } from "@/types/page";
+import Link from "next/link";
 
 export default function Over() {
     const [about, setAbout] = useState<Page | null>(null);
@@ -33,6 +34,12 @@ export default function Over() {
                 <p className="text-3xl">{about.title}</p>
                 <h1 className="text-xl">{about.sub_title}</h1>
                 <p className="text-justify">{about.content}</p>
+                <Link
+                    href="/hakkimizda"
+                    className="text-sm text-center text-gray-400 hover:text-blue-600 cursor-pointer"
+                >
+                    Tümünü Gör
+                </Link>
             </div>
         </div>
     );
