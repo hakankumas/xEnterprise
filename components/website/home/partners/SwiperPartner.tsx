@@ -2,13 +2,39 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { IsOrtaklarimiz } from "@/types/relations/isOrtaklarimiz";
 
 export default function SwiperPartner() {
+    const [isOrtaklarimiz, setIsOrtaklarimiz] = useState<IsOrtaklarimiz | null>(
+        null
+    );
+    const getIsOrtaklarimiz = async () => {
+        try {
+            const { data } = await axios.get<IsOrtaklarimiz>(
+                "/api/website/is-ortaklarimiz"
+            );
+            setIsOrtaklarimiz(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getIsOrtaklarimiz();
+    }, []);
+
+    useEffect(() => {
+        console.log(isOrtaklarimiz);
+    }, [isOrtaklarimiz]);
+
+    if (!isOrtaklarimiz) return null;
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 pb-10 -translate-y-8 lg:translate-y-0">
             <div className="flex flex-col items-center">
-                <p className="text-4xl">İş Ortaklarımız</p>
-                <h2 className="text-lg">Kurumsal Yazılım Hizmetleri</h2>
+                <p className="text-4xl">{isOrtaklarimiz.title}</p>
+                <h2 className="text-lg">{isOrtaklarimiz.sub_title}</h2>
             </div>
             <div>
                 <Swiper
@@ -24,14 +50,17 @@ export default function SwiperPartner() {
                     }}
                     autoplay={{ delay: 2500 }}
                     loop={true}
-                    grabCursor={true}
+                    grabCursor
                 >
-                    {Array.from({ length: 10 }, (_, index) => (
-                        <SwiperSlide key={index}>
+                    {isOrtaklarimiz.page_gallery.map((gallery) => (
+                        <SwiperSlide key={gallery.id}>
                             <div className="flex flex-col items-center">
                                 <img
-                                    src="https://placehold.co/500x500"
-                                    alt="Hizmet 1"
+                                    src={
+                                        "/gallery/is-ortaklarimiz/" +
+                                        gallery.img_path
+                                    }
+                                    alt={isOrtaklarimiz.title}
                                     className="lg:w-50 lg:h-50 object-cover"
                                 />
                             </div>
