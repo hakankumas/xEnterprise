@@ -9,12 +9,14 @@ import "swiper/css/pagination";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Slider } from "@/types/slider";
 
 export default function SwiperSlider() {
-    const [sliders, setSliders] = useState([]);
+    const [sliders, setSliders] = useState<Slider[]>([]);
+
     const getAllSliders = async () => {
         try {
-            const { data } = await axios.get("/api/website/slider");
+            const { data } = await axios.get<Slider[]>("/api/website/slider");
             setSliders(data);
         } catch (error) {
             console.log(error);
@@ -25,10 +27,7 @@ export default function SwiperSlider() {
         getAllSliders();
     }, []);
 
-    if (sliders.length === 0) {
-        return null;
-    }
-
+    if (!sliders) return null;
     return (
         <div className="w-full h-[700px] lg:h-[650px]">
             <Swiper
@@ -36,15 +35,15 @@ export default function SwiperSlider() {
                 slidesPerView={1}
                 navigation
                 pagination={{ clickable: true }}
-                grabCursor={true}
+                grabCursor
                 autoplay={{ delay: 3000 }}
-                loop={true}
+                loop={sliders.length > 1}
             >
-                {sliders.map((slider: any) => (
-                    <SwiperSlide key={slider.id}>
+                {sliders.map((slider) => (
+                    <SwiperSlide key={slider?.id}>
                         <img
-                            src={"slider/" + slider.img_path}
-                            alt={slider.title}
+                            src={"/slider/" + slider?.img_path}
+                            alt={slider?.title}
                             className="w-full h-[700px] lg:h-[650px] object-cover"
                         />
                     </SwiperSlide>
