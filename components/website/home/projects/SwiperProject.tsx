@@ -1,14 +1,38 @@
 "use client";
+
+// Core
+import Link from "next/link";
+// Dependencies
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
+// Types
+import { Page_Children } from "@/types/relations/page_children";
 
 export default function SwiperProject() {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["projects"],
+        queryFn: async () => {
+            const res = await axios.get<Page_Children>(
+                "/api/website/projelerimiz"
+            );
+            return res.data;
+        },
+        staleTime: Infinity,
+    });
+
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata oluştu!</div>;
+    if (!data) return null;
+
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 pb-10 lg:pt-10">
             <div className="flex flex-col items-center">
-                <p className="text-4xl">Projelerimiz</p>
-                <h2 className="text-lg">Özel Yazılım Hizmetleri</h2>
+                <p className="text-4xl">{data.title}</p>
+                <h2 className="text-lg">{data.sub_title}</h2>
             </div>
             <div>
                 <Swiper
@@ -31,31 +55,29 @@ export default function SwiperProject() {
                         },
                     }}
                     autoplay={{ delay: 2500 }}
-                    loop={true}
+                    loop={data.children.length > 1}
                 >
-                    {Array.from({ length: 10 }, (_, index) => (
-                        <SwiperSlide key={index}>
+                    {data.children.map((project) => (
+                        <SwiperSlide key={project.id}>
                             <div className="flex flex-col items-center gap-3 bg-gray-900 shadow-2xl">
                                 <img
-                                    src="https://placehold.co/500x500"
-                                    alt="Hizmet 1"
+                                    src={`/gallery/projelerimiz/${project.img_path}`}
+                                    alt={project.title}
                                     className="w-96 h-96 object-cover"
                                 />
                                 <div className="flex flex-col gap-4 px-5 pb-4">
                                     <h3 className="text-xl text-center">
-                                        Hizmet
+                                        {project.title}
                                     </h3>
                                     <p className="text-justify">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Qui in ipsum officiis
-                                        eum, facilis dolores? Velit tenetur
-                                        soluta, porro suscipit aliquid numquam
-                                        aliquam laborum quibusdam est
-                                        necessitatibus temporibus vitae in.
+                                        {project?.label}
                                     </p>
-                                    <p className="text-sm text-center text-gray-400 hover:text-white cursor-pointer">
+                                    <Link
+                                        href={`/projelerimiz/${project.slug}`}
+                                        className="text-sm text-center text-gray-400 hover:text-white cursor-pointer"
+                                    >
                                         Tümünü Gör
-                                    </p>
+                                    </Link>
                                 </div>
                             </div>
                         </SwiperSlide>

@@ -24,9 +24,9 @@ export default function Footer() {
                             </h3>
                             <div className="footer-menu flex flex-col gap-2">
                                 <Link href="/">Ana Sayfa</Link>
-                                <Link href="/about">Hakkımızda</Link>
-                                <Link href="/services">Hizmetlerimiz</Link>
-                                <Link href="/projects">Projelerimiz</Link>
+                                <Link href="/hakkimizda">Hakkımızda</Link>
+                                <Link href="/hizmetlerimiz">Hizmetlerimiz</Link>
+                                <Link href="/projelerimiz">Projelerimiz</Link>
                             </div>
                         </div>
                     </div>
@@ -37,10 +37,14 @@ export default function Footer() {
                                 Bağlantılar
                             </h3>
                             <div className="footer-menu flex flex-col gap-2">
-                                <Link href="/partners">İş Ortaklarımız</Link>
-                                <Link href="/references">Referanslarımız</Link>
+                                <Link href="/is-ortaklarimiz">
+                                    İş Ortaklarımız
+                                </Link>
+                                <Link href="/referanslarimiz">
+                                    Referanslarımız
+                                </Link>
                                 <Link href="/blog">Blog</Link>
-                                <Link href="/contact">İletişim</Link>
+                                <Link href="/iletisim">İletişim</Link>
                             </div>
                         </div>
                     </div>

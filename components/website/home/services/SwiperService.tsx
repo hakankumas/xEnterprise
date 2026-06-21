@@ -1,5 +1,7 @@
 "use client";
 
+// Core
+import Link from "next/link";
 // Dependencies
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -9,13 +11,12 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 // Types
 import { Page_Children } from "@/types/relations/page_children";
-import Link from "next/link";
 
 export default function SwiperService() {
     const { data, isLoading, error } = useQuery({
         queryKey: ["services"],
         queryFn: async () => {
-            const res = await axios.get<Page_Children[]>(
+            const res = await axios.get<Page_Children>(
                 "/api/website/hizmetlerimiz"
             );
             return res.data;
@@ -26,11 +27,12 @@ export default function SwiperService() {
     if (isLoading) return <div>Yükleniyor...</div>;
     if (error) return <div>Hata oluştu!</div>;
     if (!data) return null;
+
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 -translate-y-8 lg:translate-y-0">
             <div className="flex flex-col items-center">
-                <p className="text-4xl">{data[0].title}</p>
-                <h2 className="text-lg">{data[0].sub_title}</h2>
+                <p className="text-4xl">{data.title}</p>
+                <h2 className="text-lg">{data.sub_title}</h2>
             </div>
             <div>
                 <Swiper
@@ -44,9 +46,9 @@ export default function SwiperService() {
                     }}
                     grabCursor={true}
                     autoplay={{ delay: 2500 }}
-                    loop={data[0].children.length > 4}
+                    loop={data.children.length > 4}
                 >
-                    {data[0].children.map((child) => (
+                    {data.children.map((child) => (
                         <SwiperSlide key={child.id}>
                             <div className="flex flex-col items-center gap-3 bg-gray-900 shadow-2xl">
                                 <img
@@ -61,10 +63,11 @@ export default function SwiperService() {
                                     <p className="text-justify">
                                         {child.label}
                                     </p>
-                                    <Link href={`/hizmetlerimiz/${child.slug}`}>
-                                        <p className="text-sm text-center text-gray-400 hover:text-white cursor-pointer">
-                                            Tümünü Gör
-                                        </p>
+                                    <Link
+                                        href={`/hizmetlerimiz/${child.slug}`}
+                                        className="text-sm text-center text-gray-400 hover:text-white cursor-pointer"
+                                    >
+                                        Tümünü Gör
                                     </Link>
                                 </div>
                             </div>

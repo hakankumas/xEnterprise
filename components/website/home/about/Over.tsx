@@ -12,7 +12,7 @@ export default function Over() {
     const { data, isLoading, error } = useQuery({
         queryKey: ["about"],
         queryFn: async () => {
-            const res = await axios.get<Page>("api/website/about");
+            const res = await axios.get<Page>("api/website/hakkimizda");
             return res.data;
         },
         staleTime: Infinity,

@@ -1,12 +1,12 @@
 "use client";
 
+// Dependencies
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-// Dependencies
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 // Types
 import { Page_PageGallery } from "@/types/relations/page_pageGallery";
 
