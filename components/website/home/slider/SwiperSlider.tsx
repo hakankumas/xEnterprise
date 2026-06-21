@@ -1,33 +1,31 @@
 "use client";
 
+// Dependencies
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
-import { useEffect, useState } from "react";
-import axios from "axios";
+// Types
 import { Slider } from "@/types/slider";
 
 export default function SwiperSlider() {
-    const [sliders, setSliders] = useState<Slider[]>([]);
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["sliders"],
+        queryFn: async () => {
+            const res = await axios.get<Slider[]>("/api/website/slider");
+            return res.data;
+        },
+        staleTime: Infinity,
+    });
 
-    const getAllSliders = async () => {
-        try {
-            const { data } = await axios.get<Slider[]>("/api/website/slider");
-            setSliders(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata oluştu!</div>;
+    if (!data) return null;
 
-    useEffect(() => {
-        getAllSliders();
-    }, []);
-
-    if (!sliders) return null;
     return (
         <div className="w-full h-[700px] lg:h-[650px]">
             <Swiper
@@ -37,9 +35,9 @@ export default function SwiperSlider() {
                 pagination={{ clickable: true }}
                 grabCursor
                 autoplay={{ delay: 3000 }}
-                loop={sliders.length > 1}
+                loop={data.length > 1}
             >
-                {sliders.map((slider) => (
+                {data.map((slider) => (
                     <SwiperSlide key={slider?.id}>
                         <img
                             src={"/gallery/slider/" + slider?.img_path}

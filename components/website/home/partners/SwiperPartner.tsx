@@ -1,40 +1,38 @@
 "use client";
+
+// Core
+import Link from "next/link";
+// Dependencies
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Link from "next/link";
+// Types
 import { Page_PageGallery } from "@/types/relations/page_pageGallery";
 
 export default function SwiperPartner() {
-    const [isOrtaklarimiz, setIsOrtaklarimiz] =
-        useState<Page_PageGallery | null>(null);
-    const getIsOrtaklarimiz = async () => {
-        try {
-            const { data } = await axios.get<Page_PageGallery>(
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["partners"],
+        queryFn: async () => {
+            const res = await axios.get<Page_PageGallery>(
                 "/api/website/is-ortaklarimiz"
             );
-            setIsOrtaklarimiz(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+            return res.data;
+        },
+        staleTime: Infinity,
+    });
 
-    useEffect(() => {
-        getIsOrtaklarimiz();
-    }, []);
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata oluştu!</div>;
+    if (!data) return null;
 
-    useEffect(() => {
-        console.log(isOrtaklarimiz);
-    }, [isOrtaklarimiz]);
-
-    if (!isOrtaklarimiz) return null;
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 pb-10 -translate-y-8 lg:translate-y-0">
             <div className="flex flex-col items-center">
-                <p className="text-4xl">{isOrtaklarimiz.title}</p>
-                <h2 className="text-lg">{isOrtaklarimiz.sub_title}</h2>
+                <p className="text-4xl">{data.title}</p>
+                <h2 className="text-lg">{data.sub_title}</h2>
             </div>
             <div>
                 <Swiper
@@ -52,7 +50,7 @@ export default function SwiperPartner() {
                     loop={true}
                     grabCursor
                 >
-                    {isOrtaklarimiz.page_gallery.map((gallery) => (
+                    {data.page_gallery.map((gallery) => (
                         <SwiperSlide key={gallery.id}>
                             <div className="flex flex-col items-center">
                                 <Link
