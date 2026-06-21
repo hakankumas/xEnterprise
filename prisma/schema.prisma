@@ -34,8 +34,8 @@ model pages {
   updatedAt       DateTime?      @db.DateTime(0)
   page_gallery    page_gallery[]
   langs           langs?         @relation(fields: [lang_code], references: [code], onDelete: Cascade, map: "pages_ibfk_1")
-  pages           pages?         @relation("pagesTopages", fields: [headpage_id], references: [id], onDelete: Cascade, map: "pages_ibfk_2")
-  other_pages     pages[]        @relation("pagesTopages")
+  parent          pages?         @relation("PageChildren", fields: [headpage_id], references: [id], onDelete: Cascade, map: "pages_ibfk_2")
+  children        pages[]        @relation("PageChildren")
 
   @@index([headpage_id], map: "headpage_id")
   @@index([lang_code], map: "lang_code")

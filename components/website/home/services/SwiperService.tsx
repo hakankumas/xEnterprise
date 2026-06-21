@@ -1,15 +1,36 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
 
-import "swiper/css";
+// Dependencies
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+// Swiper
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import "swiper/css";
+// Types
+import { Page_Children } from "@/types/relations/page_children";
+import Link from "next/link";
 
 export default function SwiperService() {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["services"],
+        queryFn: async () => {
+            const res = await axios.get<Page_Children[]>(
+                "/api/website/hizmetlerimiz"
+            );
+            return res.data;
+        },
+        staleTime: Infinity,
+    });
+
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata oluştu!</div>;
+    if (!data) return null;
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 -translate-y-8 lg:translate-y-0">
             <div className="flex flex-col items-center">
-                <p className="text-4xl">Hizmetlerimiz</p>
-                <h2 className="text-lg">Profesyonel Yazılım Çözümleri</h2>
+                <p className="text-4xl">{data[0].title}</p>
+                <h2 className="text-lg">{data[0].sub_title}</h2>
             </div>
             <div>
                 <Swiper
@@ -23,31 +44,28 @@ export default function SwiperService() {
                     }}
                     grabCursor={true}
                     autoplay={{ delay: 2500 }}
-                    loop={true}
+                    loop={data[0].children.length > 4}
                 >
-                    {Array.from({ length: 10 }, (_, index) => (
-                        <SwiperSlide key={index}>
+                    {data[0].children.map((child) => (
+                        <SwiperSlide key={child.id}>
                             <div className="flex flex-col items-center gap-3 bg-gray-900 shadow-2xl">
                                 <img
-                                    src="https://placehold.co/500x500"
-                                    alt="Hizmet 1"
+                                    src={`/gallery/hizmetlerimiz/${child.img_path}`}
+                                    alt={child.title}
                                     className="w-96 h-96 object-cover hover:rotate-y-180 transition duration-700"
                                 />
                                 <div className="flex flex-col gap-4 px-5 pb-4">
                                     <h3 className="text-xl text-center">
-                                        Hizmet
+                                        {child.title}
                                     </h3>
                                     <p className="text-justify">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Qui in ipsum officiis
-                                        eum, facilis dolores? Velit tenetur
-                                        soluta, porro suscipit aliquid numquam
-                                        aliquam laborum quibusdam est
-                                        necessitatibus temporibus vitae in.
+                                        {child.label}
                                     </p>
-                                    <p className="text-sm text-center text-gray-400 hover:text-white cursor-pointer">
-                                        Tümünü Gör
-                                    </p>
+                                    <Link href={`/hizmetlerimiz/${child.slug}`}>
+                                        <p className="text-sm text-center text-gray-400 hover:text-white cursor-pointer">
+                                            Tümünü Gör
+                                        </p>
+                                    </Link>
                                 </div>
                             </div>
                         </SwiperSlide>
