@@ -38,7 +38,7 @@ export default function Over() {
                 <p className="text-justify">{data.label}</p>
                 <Link
                     href="/hakkimizda"
-                    className="text-sm text-center text-gray-400 hover:text-blue-600 cursor-pointer"
+                    className="text-sm text-center text-gray-400 hover:text-black cursor-pointer"
                 >
                     Tümünü Gör
                 </Link>

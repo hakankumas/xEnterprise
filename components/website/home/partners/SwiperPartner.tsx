@@ -11,6 +11,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 // Types
 import { Page_PageGallery } from "@/types/relations/page_pageGallery";
+import SeeAll from "../../SeeAll";
 
 export default function SwiperPartner() {
     const { data, isLoading, error } = useQuery({
@@ -73,6 +74,9 @@ export default function SwiperPartner() {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+            </div>
+            <div>
+                <SeeAll slug="is-ortaklarimiz" />
             </div>
         </div>
     );

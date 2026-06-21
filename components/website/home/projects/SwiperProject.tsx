@@ -11,6 +11,7 @@ import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 // Types
 import { Page_Children } from "@/types/relations/page_children";
+import SeeAll from "../../SeeAll";
 
 export default function SwiperProject() {
     const { data, isLoading, error } = useQuery({
@@ -83,6 +84,9 @@ export default function SwiperProject() {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+            </div>
+            <div>
+                <SeeAll slug="projelerimiz" />
             </div>
         </div>
     );

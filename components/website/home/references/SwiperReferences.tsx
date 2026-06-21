@@ -9,6 +9,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 // Types
 import { Page_PageGallery } from "@/types/relations/page_pageGallery";
+import SeeAll from "../../SeeAll";
 
 export default function SwiperReferences() {
     const { data, isLoading, error } = useQuery({
@@ -60,6 +61,9 @@ export default function SwiperReferences() {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+            </div>
+            <div>
+                <SeeAll slug="referanslarimiz" />
             </div>
         </div>
     );

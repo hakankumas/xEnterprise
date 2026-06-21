@@ -11,6 +11,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 // Types
 import { Page_Children } from "@/types/relations/page_children";
+import SeeAll from "../../SeeAll";
 
 export default function SwiperService() {
     const { data, isLoading, error } = useQuery({
@@ -74,6 +75,9 @@ export default function SwiperService() {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+            </div>
+            <div>
+                <SeeAll slug="hizmetlerimiz" />
             </div>
         </div>
     );
