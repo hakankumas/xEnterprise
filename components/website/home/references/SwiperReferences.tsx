@@ -1,14 +1,36 @@
 "use client";
+
+// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+// Dependencies
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+// Types
+import { Page_PageGallery } from "@/types/relations/page_pageGallery";
 
 export default function SwiperReferences() {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["references"],
+        queryFn: async () => {
+            const res = await axios.get<Page_PageGallery>(
+                "/api/website/referanslarimiz"
+            );
+            return res.data;
+        },
+        staleTime: Infinity,
+    });
+
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata oluştu!</div>;
+    if (!data) return null;
+
     return (
         <div className="flex flex-col gap-4 w-full h-fit px-4 lg:px-0 pb-10 lg:pt-10">
             <div className="flex flex-col items-center">
-                <p className="text-4xl">Referanslarımız</p>
-                <h2 className="text-lg">Uzman Yazılım Desteği</h2>
+                <p className="text-4xl">{data.title}</p>
+                <h2 className="text-lg">{data.sub_title}</h2>
             </div>
             <div>
                 <Swiper
@@ -23,15 +45,15 @@ export default function SwiperReferences() {
                         },
                     }}
                     autoplay={{ delay: 2500 }}
-                    loop={true}
+                    loop={data.page_gallery.length > 1}
                     grabCursor={true}
                 >
-                    {Array.from({ length: 10 }, (_, index) => (
-                        <SwiperSlide key={index}>
+                    {data.page_gallery.map((reference) => (
+                        <SwiperSlide key={reference.id}>
                             <div className="flex flex-col items-center">
                                 <img
-                                    src="https://placehold.co/500x500"
-                                    alt="Hizmet 1"
+                                    src={`/gallery/referanslarimiz/${reference.img_path}`}
+                                    alt={reference?.title}
                                     className="lg:w-50 lg:h-50 object-cover"
                                 />
                             </div>
