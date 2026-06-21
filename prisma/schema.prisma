@@ -56,10 +56,12 @@ model slider {
 }
 
 model page_gallery {
-  id       Int    @id @default(autoincrement())
-  page_id  Int
-  img_path String @db.Text
-  pages    pages  @relation(fields: [page_id], references: [id], onDelete: Cascade, map: "page_gallery_ibfk_1")
+  id        Int     @id @default(autoincrement())
+  page_id   Int
+  title     String? @db.VarChar(255)
+  href_link String? @db.Text
+  img_path  String  @db.Text
+  pages     pages   @relation(fields: [page_id], references: [id], onDelete: Cascade, map: "page_gallery_ibfk_1")
 
   @@index([page_id], map: "page_id")
 }

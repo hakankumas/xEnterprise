@@ -24,7 +24,7 @@ export default function Over() {
         <div className="relative w-full h-fit lg:h-[700px] p-4 lg:py-10 lg:px-0 lg:mb-10">
             <div className="w-full flex justify-center">
                 <img
-                    src={`/hakkimizda/${about.img_path}`}
+                    src={`/gallery/hakkimizda/${about.img_path}`}
                     alt={about.title ?? ""}
                     className="w-full lg:w-2/3 h-96 lg:h-120 object-cover"
                     loading="lazy"

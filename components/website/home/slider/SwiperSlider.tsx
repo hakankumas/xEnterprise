@@ -42,7 +42,7 @@ export default function SwiperSlider() {
                 {sliders.map((slider) => (
                     <SwiperSlide key={slider?.id}>
                         <img
-                            src={"/slider/" + slider?.img_path}
+                            src={"/gallery/slider/" + slider?.img_path}
                             alt={slider?.title}
                             className="w-full h-[700px] lg:h-[650px] object-cover"
                         />

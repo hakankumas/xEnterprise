@@ -4,15 +4,15 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { IsOrtaklarimiz } from "@/types/relations/isOrtaklarimiz";
+import Link from "next/link";
+import { Page_PageGallery } from "@/types/relations/page_pageGallery";
 
 export default function SwiperPartner() {
-    const [isOrtaklarimiz, setIsOrtaklarimiz] = useState<IsOrtaklarimiz | null>(
-        null
-    );
+    const [isOrtaklarimiz, setIsOrtaklarimiz] =
+        useState<Page_PageGallery | null>(null);
     const getIsOrtaklarimiz = async () => {
         try {
-            const { data } = await axios.get<IsOrtaklarimiz>(
+            const { data } = await axios.get<Page_PageGallery>(
                 "/api/website/is-ortaklarimiz"
             );
             setIsOrtaklarimiz(data);
@@ -55,14 +55,22 @@ export default function SwiperPartner() {
                     {isOrtaklarimiz.page_gallery.map((gallery) => (
                         <SwiperSlide key={gallery.id}>
                             <div className="flex flex-col items-center">
-                                <img
-                                    src={
-                                        "/gallery/is-ortaklarimiz/" +
-                                        gallery.img_path
+                                <Link
+                                    href={gallery.href_link ?? "#"}
+                                    target={
+                                        gallery.href_link ? "_blank" : "_self"
                                     }
-                                    alt={isOrtaklarimiz.title}
-                                    className="lg:w-50 lg:h-50 object-cover"
-                                />
+                                >
+                                    <img
+                                        src={
+                                            "/gallery/is-ortaklarimiz/" +
+                                            gallery.img_path
+                                        }
+                                        alt={gallery.title}
+                                        title={gallery.title}
+                                        className="lg:w-50 lg:h-50 object-cover"
+                                    />
+                                </Link>
                             </div>
                         </SwiperSlide>
                     ))}
