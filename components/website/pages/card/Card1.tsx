@@ -10,11 +10,11 @@ import axios from "axios";
 // Types
 import { Page_Children } from "@/types/relations/page_children";
 
-export default function Card1() {
+export default function Card1({ pageKey }: { pageKey: string }) {
     const { data, isLoading, error } = useQuery({
-        queryKey: ["services"],
+        queryKey: [pageKey],
         queryFn: async () => {
-            const res = await axios.get<Page_Children>("/api/hizmetlerimiz");
+            const res = await axios.get<Page_Children>(`/api/${pageKey}`);
             return res.data;
         },
         staleTime: Infinity,
@@ -36,7 +36,7 @@ export default function Card1() {
                     >
                         <div className="overflow-hidden">
                             <img
-                                src={`/gallery/hizmetlerimiz/${child.img_path}`}
+                                src={`/gallery/${pageKey}/${child.img_path}`}
                                 alt={child.title}
                                 className="w-full h-64 object-cover hover:scale-105 transition-all duration-300"
                             />
@@ -49,7 +49,7 @@ export default function Card1() {
                                 {child.label}
                             </p>
                             <Link
-                                href={`/hizmetlerimiz/${child.slug}`}
+                                href={`/${pageKey}/${child.slug}`}
                                 className="text-sm text-gray-400 hover:text-white cursor-pointer"
                             >
                                 Tümünü Gör

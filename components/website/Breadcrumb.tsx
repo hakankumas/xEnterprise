@@ -18,7 +18,7 @@ export default function Breadcrumb({
 
     return (
         <div className="container mx-auto">
-            <div className="px-5 py-3">
+            <div className="px-5 lg:px-0 py-3">
                 <Link
                     href="/"
                     className="text-gray-400 hover:text-white transition-colors duration-300"

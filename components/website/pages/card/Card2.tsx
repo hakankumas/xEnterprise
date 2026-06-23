@@ -10,11 +10,11 @@ import axios from "axios";
 // Types
 import { Page_Children } from "@/types/relations/page_children";
 
-export default function Card2() {
+export default function Card2({ pageKey }: { pageKey: string }) {
     const { data, isLoading, error } = useQuery({
-        queryKey: ["projelerimiz"],
+        queryKey: [pageKey],
         queryFn: async () => {
-            const res = await axios.get<Page_Children>("/api/projelerimiz");
+            const res = await axios.get<Page_Children>(`/api/${pageKey}`);
             return res.data;
         },
         staleTime: Infinity,
@@ -40,7 +40,7 @@ export default function Card2() {
                             } lg:w-2/5 overflow-hidden`}
                         >
                             <img
-                                src={`/gallery/projelerimiz/${child.img_path}`}
+                                src={`/gallery/${pageKey}/${child.img_path}`}
                                 alt={child.title}
                                 className="w-full h-64 object-cover hover:scale-105 transition-all duration-300"
                             />
@@ -53,7 +53,7 @@ export default function Card2() {
                                 {child.label}
                             </p>
                             <Link
-                                href={`/projelerimiz/${child.slug}`}
+                                href={`/${pageKey}/${child.slug}`}
                                 className="text-sm text-center lg:text-start text-gray-400 hover:text-white cursor-pointer"
                             >
                                 Tümünü Gör

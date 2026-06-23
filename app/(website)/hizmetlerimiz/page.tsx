@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Services() {
     return (
         <div className="container mx-auto">
-            <Card1 />
+            <Card1 pageKey="hizmetlerimiz" />
         </div>
     );
 }
