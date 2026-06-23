@@ -58,10 +58,10 @@ export default function SwiperService() {
                                     className="w-96 h-96 object-cover hover:rotate-y-180 transition duration-700"
                                 />
                                 <div className="flex flex-col gap-4 px-5 pb-4">
-                                    <h3 className="text-xl text-center">
+                                    <h3 className="text-xl text-center line-clamp-2">
                                         {child.title}
                                     </h3>
-                                    <p className="text-justify">
+                                    <p className="text-justify line-clamp-5">
                                         {child.label}
                                     </p>
                                     <Link

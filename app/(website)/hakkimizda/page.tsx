@@ -1,5 +1,5 @@
-import Column from "@/components/website/pages/about/Column";
-import Row from "@/components/website/pages/about/Row";
+import Column from "@/components/website/pages/page/Column";
+import Row from "@/components/website/pages/page/Row";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function About() {
     return (
         <div className="container mx-auto">
-            <Row />
+            <Row pageKey="hakkimizda" />
             {/* <Column /> */}
         </div>
     );

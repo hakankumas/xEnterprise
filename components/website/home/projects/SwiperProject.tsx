@@ -67,10 +67,10 @@ export default function SwiperProject() {
                                     className="w-96 h-96 object-cover"
                                 />
                                 <div className="flex flex-col gap-4 px-5 pb-4">
-                                    <h3 className="text-xl text-center">
+                                    <h3 className="text-xl text-center line-clamp-2">
                                         {project.title}
                                     </h3>
-                                    <p className="text-justify">
+                                    <p className="text-justify line-clamp-5">
                                         {project?.label}
                                     </p>
                                     <Link

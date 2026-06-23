@@ -1,9 +1,15 @@
-import Row from "@/components/website/pages/about/Row";
+import Row from "@/components/website/pages/page/Row";
 
-export default function ProjectDetails() {
+export default async function ProjectDetails({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
+
     return (
         <div className="container mx-auto">
-            <Row />
+            <Row pageKey="projelerimiz" pageKey2={slug} />
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import Gallery2 from "@/components/website/pages/gallery/Gallery2";
+import Gallery1 from "@/components/website/pages/gallery/Gallery1";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function References() {
     return (
         <div className="container mx-auto">
-            <Gallery2 />
+            <Gallery1 pageKey="referanslarimiz" />
         </div>
     );
 }
