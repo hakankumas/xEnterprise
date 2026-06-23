@@ -18,7 +18,7 @@ export default function SwiperPartner() {
         queryKey: ["partners"],
         queryFn: async () => {
             const res = await axios.get<Page_PageGallery>(
-                "/api/website/is-ortaklarimiz"
+                "/api/is-ortaklarimiz"
             );
             return res.data;
         },

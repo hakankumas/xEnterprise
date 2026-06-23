@@ -17,9 +17,7 @@ export default function SwiperProject() {
     const { data, isLoading, error } = useQuery({
         queryKey: ["projects"],
         queryFn: async () => {
-            const res = await axios.get<Page_Children>(
-                "/api/website/projelerimiz"
-            );
+            const res = await axios.get<Page_Children>("/api/projelerimiz");
             return res.data;
         },
         staleTime: Infinity,

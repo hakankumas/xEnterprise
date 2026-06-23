@@ -1,9 +1,13 @@
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { menuItems } from "@/variables/MenuItems";
 
-export default function Breadcrumb() {
-    const pathname = usePathname();
+interface BreadcrumbProps {
+    page_name?: string;
+    href_link?: string;
+}
+
+export default function Breadcrumb({ page_name, href_link }: BreadcrumbProps) {
+    if (!page_name || !href_link) return null;
     return (
         <div className="container mx-auto">
             <div className="px-5 py-3">
@@ -15,10 +19,10 @@ export default function Breadcrumb() {
                 </Link>
                 <span className="mx-2 text-gray-400"> / </span>
                 {menuItems.map((item) => {
-                    if (item.href === pathname) {
+                    if (item.href === href_link) {
                         return (
                             <Link key={item.href} href={item.href}>
-                                {item.label}
+                                {page_name}
                             </Link>
                         );
                     }

@@ -1,6 +1,6 @@
+import { Metadata } from "next";
 import Column from "@/components/website/pages/page/Column";
 import Row from "@/components/website/pages/page/Row";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Hakkımızda",

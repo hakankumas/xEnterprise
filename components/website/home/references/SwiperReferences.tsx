@@ -16,7 +16,7 @@ export default function SwiperReferences() {
         queryKey: ["references"],
         queryFn: async () => {
             const res = await axios.get<Page_PageGallery>(
-                "/api/website/referanslarimiz"
+                "/api/referanslarimiz"
             );
             return res.data;
         },

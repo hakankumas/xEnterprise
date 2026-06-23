@@ -16,7 +16,7 @@ export default function SwiperSlider() {
     const { data, isLoading, error } = useQuery({
         queryKey: ["sliders"],
         queryFn: async () => {
-            const res = await axios.get<Slider[]>("/api/website/slider");
+            const res = await axios.get<Slider[]>("/api/slider");
             return res.data;
         },
         staleTime: Infinity,

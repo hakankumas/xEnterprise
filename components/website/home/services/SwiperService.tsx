@@ -17,9 +17,7 @@ export default function SwiperService() {
     const { data, isLoading, error } = useQuery({
         queryKey: ["services"],
         queryFn: async () => {
-            const res = await axios.get<Page_Children>(
-                "/api/website/hizmetlerimiz"
-            );
+            const res = await axios.get<Page_Children>("/api/hizmetlerimiz");
             return res.data;
         },
         staleTime: Infinity,
