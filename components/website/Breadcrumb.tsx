@@ -4,10 +4,18 @@ import { menuItems } from "@/variables/MenuItems";
 interface BreadcrumbProps {
     page_name?: string;
     href_link?: string;
+    parent_page_name?: string;
+    parent_href_link?: string;
 }
 
-export default function Breadcrumb({ page_name, href_link }: BreadcrumbProps) {
+export default function Breadcrumb({
+    page_name,
+    href_link,
+    parent_page_name,
+    parent_href_link,
+}: BreadcrumbProps) {
     if (!page_name || !href_link) return null;
+
     return (
         <div className="container mx-auto">
             <div className="px-5 py-3">
@@ -18,15 +26,43 @@ export default function Breadcrumb({ page_name, href_link }: BreadcrumbProps) {
                     Ana Sayfa
                 </Link>
                 <span className="mx-2 text-gray-400"> / </span>
-                {menuItems.map((item) => {
-                    if (item.href === href_link) {
-                        return (
-                            <Link key={item.href} href={item.href}>
-                                {page_name}
-                            </Link>
-                        );
-                    }
-                })}
+
+                {parent_page_name && parent_href_link ? (
+                    <>
+                        {menuItems.map((item) => {
+                            if (item.href === parent_href_link) {
+                                return (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className="text-gray-400 hover:text-white transition-colors duration-300"
+                                    >
+                                        {parent_page_name}
+                                    </Link>
+                                );
+                            }
+                        })}
+                        <span className="mx-2 text-gray-400"> / </span>
+                        <Link
+                            href={`${parent_href_link}` + `${href_link}`}
+                            className="text-white hover:text-gray-400 transition-colors duration-300"
+                        >
+                            {page_name}
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        {menuItems.map((item) => {
+                            if (item.href === href_link) {
+                                return (
+                                    <Link key={item.href} href={item.href}>
+                                        {page_name}
+                                    </Link>
+                                );
+                            }
+                        })}
+                    </>
+                )}
             </div>
         </div>
     );

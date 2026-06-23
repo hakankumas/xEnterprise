@@ -6,7 +6,7 @@ import Breadcrumb from "../../Breadcrumb";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 // Types
-import { Page } from "@/types/page";
+import { Page_Parent } from "@/types/relations/page_parent";
 
 interface PageProps {
     pageKey: string;
@@ -17,7 +17,7 @@ export default function Row({ pageKey, pageKey2 }: PageProps) {
     const { data, isLoading, error } = useQuery({
         queryKey: [`${pageKey2 ? `${pageKey}/${pageKey2}` : pageKey}`],
         queryFn: async () => {
-            const res = await axios.get<Page>(
+            const res = await axios.get<Page_Parent>(
                 `/api/${pageKey2 ? `${pageKey}/${pageKey2}` : pageKey}`
             );
             return res.data;
@@ -31,7 +31,12 @@ export default function Row({ pageKey, pageKey2 }: PageProps) {
 
     return (
         <>
-            <Breadcrumb page_name={data.title} href_link={`/${data.slug}`} />
+            <Breadcrumb
+                page_name={data.title}
+                href_link={`/${data.slug}`}
+                parent_page_name={pageKey2 && data.parent?.title}
+                parent_href_link={pageKey2 && `/${data.parent?.slug}`}
+            />
 
             <div className="p-5 lg:px-0 lg:py-10">
                 <img

@@ -8,6 +8,9 @@ export async function GET(
     const { slug } = await params;
 
     const data = await prisma.pages.findFirst({
+        include: {
+            parent: true,
+        },
         where: {
             slug: slug,
         },
