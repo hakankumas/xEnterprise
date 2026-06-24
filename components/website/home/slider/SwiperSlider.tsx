@@ -27,26 +27,29 @@ export default function SwiperSlider() {
     if (!data) return null;
 
     return (
-        <div className="w-full h-[700px] lg:h-[650px]">
-            <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-                grabCursor
-                autoplay={{ delay: 3000 }}
-                loop={data.length > 1}
-            >
-                {data.map((slider) => (
-                    <SwiperSlide key={slider?.id}>
-                        <img
-                            src={"/gallery/slider/" + slider?.img_path}
-                            alt={slider?.title}
-                            className="w-full h-[700px] lg:h-[650px] object-cover"
-                        />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
+        <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            grabCursor
+            autoplay={{ delay: 3000 }}
+            loop={data.length > 1}
+        >
+            {data.map((slider) => (
+                <SwiperSlide key={slider?.id}>
+                    <img
+                        src={"/gallery/slider/" + slider?.img_path}
+                        alt={slider?.title}
+                        className="relative w-full h-[600px] lg:h-[750px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/40"></div>
+                    <div className="absolute align-middle top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-3xl text-white w-full px-10 lg:w-2/3 lg:px-0">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Veniam, similique!
+                    </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     );
 }
