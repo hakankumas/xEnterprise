@@ -7,13 +7,13 @@ import References from "@/components/website/home/References";
 
 export default function Home() {
     return (
-        <div>
+        <>
             <Slider />
             <About />
             <Partners />
             <Services />
             <Projects />
             <References />
-        </div>
+        </>
     );
 }
