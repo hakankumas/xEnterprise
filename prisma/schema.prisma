@@ -46,6 +46,7 @@ model slider {
   title       String?   @db.VarChar(500)
   lang_code   String    @db.VarChar(20)
   active      Boolean   @default(true)
+  sort_order  Int?
   description String?   @db.VarChar(1000)
   img_path    String    @db.Text
   createdAt   DateTime  @default(now()) @db.DateTime(0)
@@ -58,9 +59,9 @@ model slider {
 model page_gallery {
   id        Int     @id @default(autoincrement())
   page_id   Int
-  title     String? @db.VarChar(255)
-  href_link String? @db.Text
   img_path  String  @db.Text
+  href_link String? @db.Text
+  title     String? @db.VarChar(255)
   pages     pages   @relation(fields: [page_id], references: [id], onDelete: Cascade, map: "page_gallery_ibfk_1")
 
   @@index([page_id], map: "page_id")

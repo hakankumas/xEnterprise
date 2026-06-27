@@ -2,19 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import {
-    MdOutlineInsertLink,
-    MdKeyboardDoubleArrowUp,
-    MdKeyboardDoubleArrowDown,
-    MdBackupTable,
-    MdCall,
-    MdMenu,
-} from "react-icons/md";
-import { TfiLayoutSlider, TfiPencilAlt } from "react-icons/tfi";
+import { MdMenu } from "react-icons/md";
+import { menuItemsPanel } from "@/variables/MenuItemsPanel";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [desktopMenu, setDesktopMenu] = useState(true);
+    const pathname = usePathname();
     return (
         <div>
             {/* Mobile Menu */}
@@ -54,70 +49,28 @@ export default function Sidebar() {
                         !mobileMenu ? "items-center gap-10" : "gap-6"
                     }`}
                 >
-                    <Link
-                        href="/"
-                        className="flex flex-row gap-4 items-center text-green-500 animate-pulse"
-                        target="_blank"
-                    >
-                        <MdOutlineInsertLink />
-                        {mobileMenu && <span>Website</span>}
-                    </Link>
-
-                    <Link
-                        href="/panel/tasarim"
-                        onClick={() => setMobileMenu(false)}
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <TfiPencilAlt />
-                        {mobileMenu && <span>Tasarım</span>}
-                    </Link>
-
-                    <Link
-                        href="/panel/menu-header"
-                        onClick={() => setMobileMenu(false)}
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdKeyboardDoubleArrowUp />
-                        {mobileMenu && <span>Header Menü</span>}
-                    </Link>
-
-                    <Link
-                        href="/panel/menu-footer"
-                        onClick={() => setMobileMenu(false)}
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdKeyboardDoubleArrowDown />
-                        {mobileMenu && <span>Footer Menü</span>}
-                    </Link>
-
-                    <Link
-                        href="/panel/slider"
-                        onClick={() => setMobileMenu(false)}
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <TfiLayoutSlider />
-                        {mobileMenu && <span>Slider</span>}
-                    </Link>
-
-                    <Link
-                        href="/panel/sayfalar"
-                        onClick={() => setMobileMenu(false)}
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdBackupTable />
-                        {mobileMenu && <span>Sayfalar</span>}
-                    </Link>
-
-                    <Link
-                        href="/panel/iletisim"
-                        onClick={() => setMobileMenu(false)}
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdCall />
-                        {mobileMenu && <span>İletişim</span>}
-                    </Link>
+                    {menuItemsPanel.map((item, index) => {
+                        const Icon = item.icon;
+                        return (
+                            <Link
+                                key={index}
+                                href={item.href}
+                                onClick={() => setMobileMenu(false)}
+                                className={`${
+                                    pathname === item.href && "text-gray-400"
+                                } ${
+                                    item?.className
+                                } flex flex-row gap-4 items-center`}
+                                target={item?.target}
+                            >
+                                <Icon />
+                                {mobileMenu && <span>{item.label}</span>}
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
+
             {/* Desktop Menu */}
             <div
                 className={`${
@@ -139,7 +92,7 @@ export default function Sidebar() {
                         onClick={() => setDesktopMenu(!desktopMenu)}
                         className={`${
                             desktopMenu ? "text-white" : "text-gray-400"
-                        } text-2xl transition-colors duration-500`}
+                        } text-2xl transition-colors duration-500 cursor-pointer`}
                     >
                         <MdMenu className="text-3xl" />
                     </button>
@@ -151,69 +104,24 @@ export default function Sidebar() {
                         !desktopMenu ? "items-center gap-10" : "gap-6"
                     }`}
                 >
-                    {/* Sayfalar */}
-                    <Link
-                        href="/panel/sayfalar"
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdBackupTable />
-                        {desktopMenu && <span>Sayfalar</span>}
-                    </Link>
-
-                    {/* Header */}
-                    <Link
-                        href="/panel/menu-header"
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdKeyboardDoubleArrowUp />
-                        {desktopMenu && <span>Header Menü</span>}
-                    </Link>
-
-                    {/* Footer */}
-                    <Link
-                        href="/panel/menu-footer"
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdKeyboardDoubleArrowDown />
-                        {desktopMenu && <span>Footer Menü</span>}
-                    </Link>
-
-                    {/* Slider */}
-                    <Link
-                        href="/panel/slider"
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <TfiLayoutSlider />
-                        {desktopMenu && <span>Slider</span>}
-                    </Link>
-
-                    {/* Tasarım */}
-                    <Link
-                        href="/panel/tasarim"
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <TfiPencilAlt />
-                        {desktopMenu && <span>Tasarım</span>}
-                    </Link>
-
-                    {/* İletişim */}
-                    <Link
-                        href="/panel/iletisim"
-                        className="flex flex-row gap-4 items-center"
-                    >
-                        <MdCall />
-                        {desktopMenu && <span>İletişim</span>}
-                    </Link>
-
-                    {/* Website */}
-                    <Link
-                        href="/"
-                        className="flex flex-row gap-4 items-center text-green-500 animate-pulse"
-                        target="_blank"
-                    >
-                        <MdOutlineInsertLink />
-                        {desktopMenu && <span>Website</span>}
-                    </Link>
+                    {menuItemsPanel.map((item, index) => {
+                        const Icon = item.icon;
+                        return (
+                            <Link
+                                key={index}
+                                href={item.href}
+                                className={`${
+                                    pathname === item.href && "text-gray-400"
+                                } ${
+                                    item?.className
+                                } flex flex-row gap-4 items-center`}
+                                target={item?.target}
+                            >
+                                <Icon />
+                                {desktopMenu && <span>{item.label}</span>}
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </div>

@@ -9,38 +9,40 @@ import { TfiLayoutSlider, TfiPencilAlt } from "react-icons/tfi";
 
 export const menuItemsPanel = [
     {
-        label: "Website",
-        href: "/",
-        icon: "MdOutlineInsertLink",
-    },
-    {
-        label: "Tasarım",
-        href: "/panel/tasarim",
-        icon: "TfiPencilAlt",
+        label: "Sayfalar",
+        href: "/panel/sayfalar",
+        icon: MdBackupTable,
     },
     {
         label: "Header Menü",
-        href: "/panel/menuler/header",
-        icon: "MdKeyboardDoubleArrowUp",
+        href: "/panel/menu-header",
+        icon: MdKeyboardDoubleArrowUp,
     },
     {
         label: "Footer Menü",
-        href: "/panel/menuler/footer",
-        icon: "MdKeyboardDoubleArrowDown",
+        href: "/panel/menu-footer",
+        icon: MdKeyboardDoubleArrowDown,
     },
     {
         label: "Slider",
         href: "/panel/slider",
-        icon: "TfiLayoutSlider",
+        icon: TfiLayoutSlider,
     },
     {
-        label: "Sayfalar",
-        href: "/panel/sayfalar",
-        icon: "MdBackupTable",
+        label: "Tasarım",
+        href: "/panel/tasarim",
+        icon: TfiPencilAlt,
     },
     {
         label: "İletişim",
         href: "/panel/iletisim",
-        icon: "MdCall",
+        icon: MdCall,
+    },
+    {
+        label: "Website",
+        href: "/",
+        icon: MdOutlineInsertLink,
+        className: "text-green-500 animate-pulse",
+        target: "_blank",
     },
 ];

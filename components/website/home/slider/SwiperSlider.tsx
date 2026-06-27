@@ -34,22 +34,31 @@ export default function SwiperSlider() {
             pagination={{ clickable: true }}
             grabCursor
             autoplay={{ delay: 3000 }}
-            loop={data.length > 1}
+            loop={
+                data.length > 1 &&
+                data.filter((slider) => slider.active).length > 1
+            }
         >
-            {data.map((slider) => (
-                <SwiperSlide key={slider?.id}>
-                    <img
-                        src={"/gallery/slider/" + slider?.img_path}
-                        alt={slider?.title}
-                        className="relative w-full h-[600px] lg:h-[750px] object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40"></div>
-                    <div className="absolute align-middle top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-3xl text-white w-full px-10 lg:w-2/3 lg:px-0">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Veniam, similique!
-                    </div>
-                </SwiperSlide>
-            ))}
+            {data
+                .filter((slider) => slider.active)
+                .map((slider) => (
+                    <SwiperSlide key={slider?.id}>
+                        <img
+                            src={"/gallery/slider/" + slider?.img_path}
+                            alt={slider?.title}
+                            className="relative w-full h-[600px] lg:h-[750px] object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/40"></div>
+                        <div className="absolute align-middle top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-3xl text-white w-full px-10 lg:w-2/3 lg:px-0">
+                            <div className="flex flex-col gap-5 justify-center items-center">
+                                <p className="textl-2xl lg:text-4xl">
+                                    {slider?.title?.toUpperCase()}
+                                </p>
+                                <p>{slider?.description}</p>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                ))}
         </Swiper>
     );
 }
