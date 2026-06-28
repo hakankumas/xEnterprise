@@ -7,3 +7,7 @@
 /* * {
     border: 1px solid red;
 } */
+
+.declared_outline-0 {
+    @apply focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none;
+}

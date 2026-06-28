@@ -9,9 +9,12 @@ import { ReactSortable } from "react-sortablejs";
 import type { Slider } from "@/types/slider";
 // Icons
 import { MdDeleteForever } from "react-icons/md";
-import { FaCheckCircle, FaEdit } from "react-icons/fa";
+import { FaCheckCircle, FaEdit, FaPlusCircle } from "react-icons/fa";
+import { SliderCreate } from "@/components/panel/SliderCreate";
 
 export default function Slider() {
+    const [sliderCreateModal, setSliderCreateModal] = useState(false);
+
     // Get Data
     const { data, isLoading, error } = useQuery({
         queryKey: ["panelSlider"],
@@ -19,7 +22,7 @@ export default function Slider() {
             const res = await axios.get<Slider[]>("/api/slider");
             return res.data;
         },
-        // staleTime: Infinity,
+        staleTime: Infinity,
     });
 
     // Active
@@ -88,7 +91,20 @@ export default function Slider() {
     if (!data) return null;
     return (
         <div className="flex flex-col gap-2 lg:p-10 w-full bg-gray-800 p-3">
-            <div className="text-2xl">Slider</div>
+            <div className="flex flex-row justify-between items-center text-2xl">
+                <div>Slider</div>
+                <button
+                    className="flex flex-row items-center gap-2 hover:bg-green-500 hover:text-black p-2 rounded cursor-pointer"
+                    onClick={() => setSliderCreateModal(true)}
+                >
+                    <FaPlusCircle />
+                    <span className="hidden lg:block">Slider Ekle</span>
+                </button>
+                <SliderCreate
+                    open={sliderCreateModal}
+                    onOpenChange={setSliderCreateModal}
+                />
+            </div>
             <ReactSortable
                 className="flex flex-col gap-2"
                 animation={200}
@@ -101,12 +117,12 @@ export default function Slider() {
                         key={item.id}
                         className={`${
                             item.active ? "" : "opacity-40"
-                        } flex flex-row justify-between items-center p-2 lg:p-3 bg-gray-900 hover:bg-gray-950 cursor-pointer`}
+                        } flex flex-row justify-between items-center p-5 lg:p-3 bg-gray-900 hover:bg-gray-950 cursor-pointer rounded`}
                     >
-                        <div className="line-clamp-1 w-50 lg:w-full">
+                        <div className="line-clamp-1 w-50 lg:w-full text-xl lg:text-lg">
                             {item.title}
                         </div>
-                        <div className="flex flex-row gap-3 lg:gap-8 text-2xl w-fit ps-5">
+                        <div className="flex flex-col lg:flex-row gap-10 lg:gap-8 text-2xl w-fit ps-5">
                             <FaCheckCircle
                                 title={item.active ? "Pasife Al" : "Aktif Et"}
                                 className="text-green-500 hover:text-green-700 cursor-pointer"
