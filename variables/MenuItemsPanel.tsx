@@ -2,17 +2,11 @@ import {
     MdOutlineInsertLink,
     MdKeyboardDoubleArrowUp,
     MdKeyboardDoubleArrowDown,
-    MdBackupTable,
     MdCall,
 } from "react-icons/md";
 import { TfiLayoutSlider, TfiPencilAlt } from "react-icons/tfi";
 
 export const menuItemsPanel = [
-    {
-        label: "Sayfalar",
-        href: "/panel/sayfalar",
-        icon: MdBackupTable,
-    },
     {
         label: "Header Menü",
         href: "/panel/menu-header",

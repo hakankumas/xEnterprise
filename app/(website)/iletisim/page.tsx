@@ -11,7 +11,7 @@ export default function Contact() {
     return (
         <div className="container mx-auto">
             {/* <Row /> */}
-            <Column />
+            <Column pageKey="iletisim" />
         </div>
     );
 }

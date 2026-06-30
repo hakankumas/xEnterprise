@@ -46,11 +46,11 @@ model slider {
   title       String?   @db.VarChar(500)
   lang_code   String    @db.VarChar(20)
   active      Boolean   @default(true)
-  sort_order  Int?
   description String?   @db.VarChar(1000)
   img_path    String    @db.Text
   createdAt   DateTime  @default(now()) @db.DateTime(0)
   updatedAt   DateTime? @db.DateTime(0)
+  sort_order  Int?
   langs       langs     @relation(fields: [lang_code], references: [code], onDelete: Cascade, map: "slider_ibfk_1")
 
   @@index([lang_code], map: "lang_code")
@@ -65,4 +65,25 @@ model page_gallery {
   pages     pages   @relation(fields: [page_id], references: [id], onDelete: Cascade, map: "page_gallery_ibfk_1")
 
   @@index([page_id], map: "page_id")
+}
+
+model contact {
+  id           Int            @id @default(autoincrement())
+  name         String?        @db.VarChar(255)
+  type         String         @db.VarChar(255)
+  icon         String         @db.VarChar(255)
+  contact_data contact_data[]
+}
+
+model contact_data {
+  id         Int     @id @default(autoincrement())
+  contact_id Int
+  label      String  @db.VarChar(255)
+  href       String? @db.VarChar(255)
+  active     Boolean @default(true)
+  iframe     String? @db.Text
+  sort_order Int?
+  parent     contact @relation(fields: [contact_id], references: [id], onDelete: Cascade, map: "contact_data_ibfk_1")
+
+  @@index([contact_id], map: "contact_id")
 }

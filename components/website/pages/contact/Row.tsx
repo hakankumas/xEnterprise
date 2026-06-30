@@ -1,7 +1,7 @@
 import { socialMediaLinks } from "@/variables/SocialMediaItems";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { IoMail } from "react-icons/io5";
+import { FaEnvelope } from "react-icons/fa";
 
 export default function Row() {
     return (
@@ -15,7 +15,7 @@ export default function Row() {
                     className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
                 >
                     <span>
-                        <IoMail size={20} />
+                        <FaEnvelope size={20} />
                     </span>
                     <span>info@hakankumas.com.tr</span>
                 </a>

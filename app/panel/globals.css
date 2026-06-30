@@ -1,13 +1,24 @@
 @import "tailwindcss";
 
-:root {
-    background-color: #000;
-    color: #fff;
-}
 /* * {
     border: 1px solid red;
 } */
 
+:root {
+    --background: #000;
+    --text: #fff;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+}
+
+/* Shadcn Classları */
 .declared_outline-0 {
     @apply focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none;
+}
+
+input {
+    @apply focus:outline-none focus:ring-0;
 }

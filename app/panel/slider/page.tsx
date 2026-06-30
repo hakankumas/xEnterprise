@@ -90,7 +90,7 @@ export default function Slider() {
     if (error) return <div>Hata oluştu!</div>;
     if (!data) return null;
     return (
-        <div className="flex flex-col gap-2 lg:p-10 w-full bg-gray-800 p-3">
+        <div className="flex flex-col gap-2 lg:p-10 w-full p-3">
             <div className="flex flex-row justify-between items-center text-2xl">
                 <div>Slider</div>
                 <button

@@ -1,56 +1,65 @@
-import { FaPhoneAlt } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { IoMail } from "react-icons/io5";
-import { contactItems } from "@/variables/ContactItems";
-import { socialMediaLinks } from "@/variables/SocialMediaItems";
+"use client";
+// Core
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { iconMap } from "@/lib/icons";
+// Types
+import { ContactData } from "@/types/relations/contact_contactData";
 
 export default function HeaderTop() {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["iletisim"],
+        queryFn: async () => {
+            const res = await axios.get<ContactData[]>("/api/iletisim");
+            return res.data;
+        },
+        staleTime: Infinity,
+    });
+
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata oluştu!</div>;
+    if (!data) return null;
+
     return (
-        <div className="flex flex-col lg:flex-row lg:justify-between px-4 pt-4 lg:pb-2 text-gray-300">
-            <a
-                href={contactItems.address.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden lg:flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
-            >
-                <span>{contactItems.address.icon}</span>
-                <span>{contactItems.address.label}</span>
-            </a>
-            <a
-                href={contactItems.email.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden lg:flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
-            >
-                <span>{contactItems.email.icon}</span>
-                <span>{contactItems.email.label}</span>
-            </a>
+        <div className="hidden lg:flex flex-row justify-between p-4 pb-0 text-gray-300">
+            {data
+                .filter((item) => item.active && item.parent.id <= 3)
+                .map((item, index) => {
+                    const Icon =
+                        iconMap[item.parent.icon as keyof typeof iconMap];
+                    return (
+                        <a
+                            key={index}
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
+                        >
+                            {Icon && <Icon size={20} />}
+                            <span>{item.label}</span>
+                        </a>
+                    );
+                })}
             <div className="hidden lg:flex gap-4 justify-center lg:justify-start">
-                {socialMediaLinks.map((link) => (
-                    <a
-                        key={link.label}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={
-                            link.active
-                                ? "text-gray-300 hover:text-gray-400 transition-colors duration-300 text-xl"
-                                : "hidden"
-                        }
-                        title={`Hakan KUMAŞ - ` + link.label}
-                    >
-                        {link.icon}
-                    </a>
-                ))}
+                {data
+                    .filter((item) => item.active && item.parent.id > 4)
+                    .map((item, index) => {
+                        const Icon =
+                            iconMap[item.parent.icon as keyof typeof iconMap];
+                        return (
+                            <a
+                                key={index}
+                                href={item.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-300 hover:text-gray-400 transition-colors duration-300 text-xl"
+                                title={`Hakan KUMAŞ - ` + item.label}
+                            >
+                                {Icon && <Icon size={25} />}
+                            </a>
+                        );
+                    })}
             </div>
-            <a
-                href={contactItems.phone.href}
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 mt-3 lg:mt-0 hover:text-gray-400 transition-colors duration-300"
-            >
-                <span>{contactItems.phone.icon}</span>
-                <span>{contactItems.phone.label}</span>
-            </a>
         </div>
     );
 }

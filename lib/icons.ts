@@ -1,0 +1,37 @@
+import {
+    FaPhoneAlt,
+    FaBloggerB,
+    FaFacebook,
+    FaGithub,
+    FaInstagram,
+    FaLinkedin,
+    FaMediumM,
+    FaPinterest,
+    FaRedditAlien,
+    FaTelegramPlane,
+    FaTiktok,
+    FaTwitch,
+    FaYoutube,
+    FaWhatsapp,
+} from "react-icons/fa";
+import { FaLocationDot, FaXTwitter, FaEnvelope } from "react-icons/fa6";
+
+export const iconMap = {
+    FaPhoneAlt,
+    FaBloggerB,
+    FaFacebook,
+    FaGithub,
+    FaInstagram,
+    FaLinkedin,
+    FaMediumM,
+    FaPinterest,
+    FaRedditAlien,
+    FaTelegramPlane,
+    FaTiktok,
+    FaTwitch,
+    FaYoutube,
+    FaLocationDot,
+    FaXTwitter,
+    FaEnvelope,
+    FaWhatsapp,
+};
