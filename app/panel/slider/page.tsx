@@ -94,7 +94,7 @@ export default function Slider() {
             <div className="flex flex-row justify-between items-center text-2xl">
                 <div>Slider</div>
                 <button
-                    className="flex flex-row items-center gap-2 hover:bg-green-500 hover:text-black p-2 rounded cursor-pointer"
+                    className="flex flex-row items-center gap-2 border hover:bg-green-500 hover:text-black p-2 rounded cursor-pointer"
                     onClick={() => setSliderCreateModal(true)}
                 >
                     <FaPlusCircle />

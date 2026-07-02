@@ -31,6 +31,7 @@ export default function HeaderTop() {
                         <a
                             key={index}
                             href={item.href}
+                            title={`${item.parent.name} - ${item.label}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
@@ -50,10 +51,10 @@ export default function HeaderTop() {
                             <a
                                 key={index}
                                 href={item.href}
+                                title={`${item.parent.name} - ${item.label}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-300 hover:text-gray-400 transition-colors duration-300 text-xl"
-                                title={`Hakan KUMAŞ - ` + item.label}
                             >
                                 {Icon && <Icon size={25} />}
                             </a>

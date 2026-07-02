@@ -7,6 +7,8 @@
 :root {
     --background: #000;
     --text: #fff;
+    --dark: #000;
+    --light: #fff;
 }
 
 body {
@@ -14,11 +16,28 @@ body {
     color: var(--text);
 }
 
-/* Shadcn Classları */
-.declared_outline-0 {
-    @apply focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none;
+.light {
+    background: var(--light);
+    color: var(--dark);
+}
+
+button {
+    @apply focus:outline-none focus:ring-0 cursor-pointer rounded-md py-1 px-5 transition-colors duration-300;
 }
 
 input {
     @apply focus:outline-none focus:ring-0;
+}
+
+select {
+    @apply focus:outline-none focus:ring-0 cursor-pointer;
+}
+
+.divider {
+    @apply border-y border-y-black my-5 py-5;
+}
+
+/* Shadcn Classları */
+.declared_outline-0 {
+    @apply focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none;
 }

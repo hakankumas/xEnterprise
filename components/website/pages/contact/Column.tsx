@@ -37,6 +37,7 @@ export default function Column() {
                                 <a
                                     key={index}
                                     href={item.href}
+                                    title={`${item.parent.name} - ${item.label}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex lg:flex-col items-center gap-2 bg-gray-300 hover:bg-gray-200 text-black w-full p-3 transition-colors duration-300"
@@ -60,10 +61,10 @@ export default function Column() {
                                     <a
                                         key={index}
                                         href={item.href}
+                                        title={`${item.parent.name} - ${item.label}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="hover:text-sky-700 transition-colors duration-300"
-                                        title={`Hakan KUMAŞ - ` + item.label}
                                     >
                                         {Icon && <Icon size={30} />}
                                     </a>
