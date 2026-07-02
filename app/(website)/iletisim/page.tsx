@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default function Contact() {
     return (
         <div className="container mx-auto">
-            {/* <Row /> */}
-            <Column pageKey="iletisim" />
+            <Row />
+            {/* <Column /> */}
         </div>
     );
 }

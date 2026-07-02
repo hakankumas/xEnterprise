@@ -42,7 +42,9 @@ export default function Column() {
                                     className="flex lg:flex-col items-center gap-2 bg-gray-300 hover:bg-gray-200 text-black w-full p-3 transition-colors duration-300"
                                 >
                                     {Icon && <Icon size={20} />}
-                                    <span>{item.label}</span>
+                                    <span className="line-clamp-3">
+                                        {item.label}
+                                    </span>
                                 </a>
                             );
                         })}

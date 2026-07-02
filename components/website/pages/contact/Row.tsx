@@ -1,71 +1,89 @@
-import { socialMediaLinks } from "@/variables/SocialMediaItems";
-import { FaPhoneAlt } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { FaEnvelope } from "react-icons/fa";
+"use client";
+// Core
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { iconMap } from "@/lib/icons";
+// Types
+import { ContactData } from "@/types/relations/contact_contactData";
+import Breadcrumb from "../../Breadcrumb";
 
 export default function Row() {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["iletisim"],
+        queryFn: async () => {
+            const res = await axios.get<ContactData[]>("/api/iletisim");
+            return res.data;
+        },
+        staleTime: Infinity,
+    });
+
+    if (isLoading) return <div>Yükleniyor...</div>;
+    if (error) return <div>Hata oluştu!</div>;
+    if (!data) return null;
     return (
-        <div className="flex flex-col lg:flex-row justify-between p-5 gap-10 lg:gap-0 lg:border border-gray-700 lg:mt-3">
-            <div className="flex flex-col w-full lg:w-1/2 gap-5">
-                <p className="text-2xl font-bold">İletişim Bilgileri</p>
-                <a
-                    href="mailto:info@hakankumas.com.tr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
-                >
-                    <span>
-                        <FaEnvelope size={20} />
-                    </span>
-                    <span>info@hakankumas.com.tr</span>
-                </a>
-                <a
-                    href="tel:+905344408084"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
-                >
-                    <span>
-                        <FaPhoneAlt size={20} />
-                    </span>
-                    <span>+90 534 440 80 84</span>
-                </a>
-                <a
-                    href="https://www.google.com/maps/place/Sakarya/T%C3%BCrkiye"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:text-gray-400 transition-colors duration-300"
-                >
-                    <span>
-                        <FaLocationDot size={20} />
-                    </span>
-                    <span>Sakarya/Türkiye</span>
-                </a>
-                <div className="flex items-center gap-5">
-                    {socialMediaLinks.map((link) => (
-                        <a
-                            key={link.label}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={
-                                link.active
-                                    ? "text-gray-300 hover:text-gray-400 transition-colors duration-300 text-xl"
-                                    : "hidden"
-                            }
-                            title={`Hakan KUMAŞ - ` + link.label}
-                        >
-                            {link.icon}
-                        </a>
-                    ))}
+        <>
+            <Breadcrumb page_name={`İletişim`} href_link={`/iletisim`} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 h-fit p-3 lg:p-0 bg-gray-900 mt-5 lg:mt-10">
+                <div className="h-fit flex flex-col gap-8 p-2 lg:p-5">
+                    <h1 className="text-xl lg:text-3xl font-bold">
+                        İletişim Bilgileri
+                    </h1>
+                    {data
+                        .filter((item) => item.active && item.parent.id <= 3)
+                        .map((item, index) => {
+                            const Icon =
+                                iconMap[
+                                    item.parent.icon as keyof typeof iconMap
+                                ];
+                            return (
+                                <a
+                                    key={index}
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-4 hover:text-gray-400 transition-colors duration-300"
+                                >
+                                    {Icon && <Icon size={20} />}
+                                    <span className="line-clamp-3">
+                                        {item.label}
+                                    </span>
+                                </a>
+                            );
+                        })}
+                    <div className="flex gap-5">
+                        {data
+                            .filter((item) => item.active && item.parent.id > 4)
+                            .map((item, index) => {
+                                const Icon =
+                                    iconMap[
+                                        item.parent.icon as keyof typeof iconMap
+                                    ];
+                                return (
+                                    <a
+                                        key={index}
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-sky-700 transition-colors duration-300"
+                                        title={`Hakan KUMAŞ - ` + item.label}
+                                    >
+                                        {Icon && <Icon size={30} />}
+                                    </a>
+                                );
+                            })}
+                    </div>
+                </div>
+                <div className="h-100">
+                    <iframe
+                        src={
+                            data.filter((item) => item.parent.id === 3)[0]
+                                .iframe
+                        }
+                        loading="lazy"
+                        className="w-full h-full"
+                    ></iframe>
                 </div>
             </div>
-            <div className="w-full lg:w-1/2 h-96">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96722.76535714738!2d30.299893471309307!3d40.749125200390274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14ccb2fad58e639f%3A0xb84f12f8c14f1221!2sSakarya!5e0!3m2!1str!2str!4v1781115782265!5m2!1str!2str"
-                    loading="lazy"
-                    className="w-full h-full"
-                ></iframe>
-            </div>
-        </div>
+        </>
     );
 }
