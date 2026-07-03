@@ -6,33 +6,23 @@ export async function PUT(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
-    const { contact_id, socialmedia_type, label, href, iframe, active } =
+    const { contact_id, socialmedia_type, label, href, iframe } =
         await req.json();
-    if (active !== undefined) {
-        await prisma.contact_data.update({
-            where: {
-                id: Number(id),
-            },
-            data: {
-                active,
-            },
-        });
-    } else {
-        await prisma.contact_data.update({
-            where: {
-                id: Number(id),
-            },
-            data: {
-                contact_id:
-                    contact_id === "social"
-                        ? Number(socialmedia_type)
-                        : Number(contact_id),
-                label,
-                href,
-                iframe,
-            },
-        });
-    }
+
+    await prisma.contact_data.update({
+        where: {
+            id: Number(id),
+        },
+        data: {
+            contact_id:
+                contact_id === "social"
+                    ? Number(socialmedia_type)
+                    : Number(contact_id),
+            label,
+            href,
+            iframe,
+        },
+    });
 
     return NextResponse.json({ success: true });
 }

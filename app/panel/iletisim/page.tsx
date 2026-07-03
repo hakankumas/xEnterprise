@@ -34,7 +34,8 @@ export default function Contact() {
     const queryClient = useQueryClient();
     const activeMutation = useMutation({
         mutationFn: ({ id, active }: { id: number; active: boolean }) => {
-            return axios.put(`/api/iletisim/${id}`, {
+            return axios.put(`/api/iletisim/active`, {
+                id,
                 active: !active,
             });
         },
