@@ -1,9 +1,10 @@
 "use client";
 
 // Core
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { ReactSortable } from "react-sortablejs";
 // Types
 import type { ContactData } from "@/types/relations/contact_contactData";
@@ -13,7 +14,6 @@ import { FaCheckCircle, FaEdit, FaPlusCircle } from "react-icons/fa";
 // Components
 import { ContactCreate } from "@/components/panel/ContactCreate";
 import { ContactEdit } from "@/components/panel/ContactEdit";
-import toast from "react-hot-toast";
 
 export default function Contact() {
     const [contactCreateModal, setContactCreateModal] = useState(false);

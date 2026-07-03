@@ -4,16 +4,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { ReactSortable } from "react-sortablejs";
 // Types
 import type { Slider } from "@/types/slider";
 // Icons
 import { MdDeleteForever } from "react-icons/md";
 import { FaCheckCircle, FaEdit, FaPlusCircle } from "react-icons/fa";
+// Components
 import { SliderCreate } from "@/components/panel/SliderCreate";
+import { SliderEdit } from "@/components/panel/SliderEdit";
 
 export default function Slider() {
-    const [sliderCreateModal, setSliderCreateModal] = useState(false);
+    const [createModal, setCreateModal] = useState(false);
+    const [editModal, setEditModal] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<Slider | null>(null);
 
     // Get Data
     const { data, isLoading, error } = useQuery({
@@ -29,7 +34,8 @@ export default function Slider() {
     const queryClient = useQueryClient();
     const activeMutation = useMutation({
         mutationFn: ({ id, active }: { id: number; active: boolean }) => {
-            return axios.put(`/api/slider/${id}`, {
+            return axios.put(`/api/slider/active`, {
+                id,
                 active: !active,
             });
         },
@@ -37,6 +43,10 @@ export default function Slider() {
             queryClient.invalidateQueries({
                 queryKey: ["panelSlider"],
             });
+            toast.success("Slider görünürlüğü güncellendi.");
+        },
+        onError: (error) => {
+            toast.error(error.message);
         },
     });
 
@@ -49,6 +59,10 @@ export default function Slider() {
             queryClient.invalidateQueries({
                 queryKey: ["panelSlider"],
             });
+            toast.success("Slider silindi.");
+        },
+        onError: (error) => {
+            toast.error(error.message);
         },
     });
 
@@ -95,15 +109,12 @@ export default function Slider() {
                 <div>Slider</div>
                 <button
                     className="flex flex-row items-center gap-2 border hover:bg-green-500 hover:text-black p-2 rounded cursor-pointer"
-                    onClick={() => setSliderCreateModal(true)}
+                    onClick={() => setCreateModal(true)}
                 >
                     <FaPlusCircle />
                     <span className="hidden lg:block">Slider Ekle</span>
                 </button>
-                <SliderCreate
-                    open={sliderCreateModal}
-                    onOpenChange={setSliderCreateModal}
-                />
+                <SliderCreate open={createModal} setOpen={setCreateModal} />
             </div>
             <ReactSortable
                 className="flex flex-col gap-2"
@@ -133,6 +144,10 @@ export default function Slider() {
                             <FaEdit
                                 title="Düzenle"
                                 className="text-white hover:text-gray-400 cursor-pointer"
+                                onClick={() => {
+                                    setSelectedItem(item);
+                                    setEditModal(true);
+                                }}
                             />
                             <MdDeleteForever
                                 title={item.active ? "Pasife Al" : "Sil"}
@@ -147,6 +162,14 @@ export default function Slider() {
                     </div>
                 ))}
             </ReactSortable>
+            {selectedItem && (
+                <SliderEdit
+                    key={Date.now()}
+                    open={editModal}
+                    setOpen={setEditModal}
+                    data={selectedItem}
+                />
+            )}
         </div>
     );
 }

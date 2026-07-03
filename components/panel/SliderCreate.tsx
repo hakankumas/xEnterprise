@@ -1,26 +1,17 @@
-import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import { Field, FieldGroup } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
+import { IoClose } from "react-icons/io5";
+// Custom Hooks
+import { useEscape } from "@/hooks/useEscape";
 
 type Props = {
     open: boolean;
-    onOpenChange: (open: boolean) => void;
+    setOpen: (open: boolean) => void;
 };
 
-export function SliderCreate({ open, onOpenChange }: Props) {
+export function SliderCreate({ open, setOpen }: Props) {
     const [newData, setNewData] = useState({
         title: "",
         description: "",
@@ -38,9 +29,10 @@ export function SliderCreate({ open, onOpenChange }: Props) {
             queryClient.invalidateQueries({
                 queryKey: ["panelSlider"],
             });
+            toast.success("Başarıyla Oluşturuldu.");
         },
         onError: (error) => {
-            console.error(error);
+            toast.error(error.message);
         },
     });
 
@@ -56,7 +48,7 @@ export function SliderCreate({ open, onOpenChange }: Props) {
 
         await postMutation.mutateAsync(formData);
 
-        onOpenChange(false);
+        setOpen(false);
 
         setNewData({
             title: "",
@@ -66,76 +58,97 @@ export function SliderCreate({ open, onOpenChange }: Props) {
         setFile(null);
     };
 
-    return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-sm md:max-w-1/3 bg-gray-300 text-black">
-                <DialogHeader>
-                    <DialogTitle className="text-2xl">Slider Ekle</DialogTitle>
-                </DialogHeader>
-                <FieldGroup>
-                    <Field>
-                        <Label htmlFor="title">Başlık</Label>
-                        <Textarea
-                            id="title"
-                            name="title"
-                            className="h-10 declared_outline-0"
-                            value={newData.title}
-                            onChange={(e) =>
-                                setNewData({
-                                    ...newData,
-                                    title: e.target.value,
-                                })
-                            }
-                        />
-                    </Field>
-                    <Field>
-                        <Label htmlFor="description">Açıklama</Label>
-                        <Textarea
-                            id="description"
-                            name="description"
-                            className="h-30 declared_outline-0"
-                            value={newData.description}
-                            onChange={(e) =>
-                                setNewData({
-                                    ...newData,
-                                    description: e.target.value,
-                                })
-                            }
-                        />
-                    </Field>
-                    <Field>
-                        <Label htmlFor="description">Dosya</Label>
-                        <Input
-                            id="file"
-                            name="file"
-                            type="file"
-                            accept="image/*"
-                            className="cursor-pointer declared_outline-0"
-                            onChange={(e) => {
-                                const selectedFile = e.target.files?.[0];
+    // Escape Modal
+    useEscape(open, () => setOpen(false));
 
-                                if (selectedFile) {
-                                    setFile(selectedFile);
-                                }
-                            }}
-                        />
-                    </Field>
-                </FieldGroup>
-                <DialogFooter className="flex flex-row justify-end">
-                    <DialogClose asChild>
-                        <Button className="bg-gray-400 hover:bg-gray-500 hover:text-gray-100 p-3 cursor-pointer">
-                            İptal
-                        </Button>
-                    </DialogClose>
-                    <Button
-                        type="submit"
-                        className="bg-green-500 hover:bg-green-600 p-3 cursor-pointer"
-                        onClick={() => handleCreate()}
-                    >
-                        Kaydet
-                    </Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+    return (
+        <>
+            {open && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center text-lg">
+                    <div
+                        onClick={() => setOpen(false)}
+                        className="absolute inset-0 bg-black/90"
+                    />
+
+                    <div className="light relative z-10 w-full max-w-xl rounded-xl p-6 shadow-lg">
+                        <div className="flex items-center justify-between">
+                            <div className="text-2xl font-semibold">
+                                Slider Ekle
+                            </div>
+                            <IoClose
+                                className="text-3xl cursor-pointer hover:text-gray-700 transition-colors duration-300"
+                                onClick={() => setOpen(false)}
+                            />
+                        </div>
+
+                        <div className="divider flex flex-col gap-5">
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="title">Başlık</label>
+                                <textarea
+                                    id="title"
+                                    className="border rounded py-1 px-2"
+                                    value={newData.title}
+                                    onChange={(e) =>
+                                        setNewData({
+                                            ...newData,
+                                            title: e.target.value,
+                                        })
+                                    }
+                                ></textarea>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="description">Açıklama</label>
+                                <textarea
+                                    id="description"
+                                    className="border rounded py-1 px-2"
+                                    value={newData.description}
+                                    onChange={(e) =>
+                                        setNewData({
+                                            ...newData,
+                                            description: e.target.value,
+                                        })
+                                    }
+                                ></textarea>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="description">Resim</label>
+                                <input
+                                    type="file"
+                                    id="file"
+                                    accept="image/*"
+                                    className="border rounded py-1 px-2 cursor-pointer"
+                                    onChange={(e) => {
+                                        const selectedFile =
+                                            e.target.files?.[0];
+
+                                        if (selectedFile) {
+                                            setFile(selectedFile);
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex justify-end gap-3">
+                            <button
+                                onClick={() => setOpen(false)}
+                                className="text-gray-900 border hover:bg-gray-200"
+                            >
+                                Kapat
+                            </button>
+
+                            <button
+                                onClick={handleCreate}
+                                className="text-white bg-green-700 hover:bg-green-600"
+                            >
+                                Kaydet
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }

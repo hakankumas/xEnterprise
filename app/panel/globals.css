@@ -29,15 +29,14 @@ input {
     @apply focus:outline-none focus:ring-0;
 }
 
+textarea {
+    @apply focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none;
+}
+
 select {
     @apply focus:outline-none focus:ring-0 cursor-pointer;
 }
 
 .divider {
     @apply border-y border-y-black my-5 py-5;
-}
-
-/* Shadcn Classları */
-.declared_outline-0 {
-    @apply focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none;
 }
